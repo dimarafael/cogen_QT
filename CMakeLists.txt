@@ -15,7 +15,12 @@ qt_add_executable(appcogen
 qt_add_qml_module(appcogen
     URI cogen
     VERSION 1.0
-    QML_FILES Main.qml
+    QML_FILES
+        Main.qml
+        TextFit.qml
+    RESOURCES
+        img/logo.svg
+        img/Coffee_Bean.svg
 )
 
 set_target_properties(appcogen PROPERTIES
