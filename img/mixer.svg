@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   version="1.1"
+   id="svg3248"
+   width="75.859985"
+   height="75.858643"
+   viewBox="0 0 75.859985 75.858641"
+   sodipodi:docname="Cogen_Icons_2.ai"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <defs
+     id="defs3252">
+    <clipPath
+       clipPathUnits="userSpaceOnUse"
+       id="clipPath6848">
+      <g
+         id="g6852"
+         transform="translate(-285.7178,-127.6437)">
+        <path
+           d="M 0,841.89 H 595.276 V 0 H 0 Z"
+           id="path6850" />
+      </g>
+    </clipPath>
+    <clipPath
+       clipPathUnits="userSpaceOnUse"
+       id="clipPath6854">
+      <g
+         id="g6858"
+         transform="translate(-283.9277,-173.7531)">
+        <path
+           d="M 0,841.89 H 595.276 V 0 H 0 Z"
+           id="path6856" />
+      </g>
+    </clipPath>
+  </defs>
+  <sodipodi:namedview
+     id="namedview3250"
+     pagecolor="#ffffff"
+     bordercolor="#000000"
+     borderopacity="0.25"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1"
+     showgrid="false" />
+  <g
+     id="g3256"
+     inkscape:groupmode="layer"
+     inkscape:label="Page 1"
+     transform="matrix(1.3333333,0,0,-1.3333333,-340.64093,236.44412)">
+    <g
+       id="g3334"
+       transform="translate(283.9277,173.7531)"
+       clip-path="url(#clipPath6854)"
+       style="fill:#d4d4d4;fill-opacity:1">
+      <path
+         d="m 0,0 c -13.711,0 -24.867,-11.155 -24.867,-24.867 0,-13.712 11.156,-24.868 24.867,-24.868 13.712,0 24.868,11.156 24.868,24.868 C 24.868,-11.155 13.712,0 0,0 m 0,-53.314 c -15.686,0 -28.447,12.76 -28.447,28.447 0,15.686 12.761,28.447 28.447,28.447 15.687,0 28.448,-12.761 28.448,-28.447 0,-15.687 -12.761,-28.447 -28.448,-28.447"
+         style="fill:#d4d4d4;fill-opacity:1;fill-rule:nonzero;stroke:none"
+         id="path3336" />
+    </g>
+    <g
+       id="g3338"
+       transform="translate(285.7178,127.6437)"
+       clip-path="url(#clipPath6848)"
+       style="fill:#d4d4d4;fill-opacity:1">
+      <path
+         d="m 0,0 h -1.79 c -11.712,0 -21.242,9.528 -21.242,21.242 h 3.58 c 0,-9.136 6.971,-16.673 15.872,-17.573 v 38.813 h 1.79 c 11.713,0 21.241,-9.528 21.241,-21.24 h -3.58 c 0,9.134 -6.97,16.671 -15.871,17.571 z"
+         style="fill:#d4d4d4;fill-opacity:1;fill-rule:nonzero;stroke:none"
+         id="path3340" />
+    </g>
+    <text
+       xml:space="preserve"
+       transform="matrix(1,0,0,-1,262.6855,246.8281)"
+       style="font-variant:normal;font-weight:normal;font-stretch:normal;font-size:12px;font-family:'Myriad Pro';-inkscape-font-specification:MyriadPro-Regular;writing-mode:lr-tb;fill:#1d1d1b;fill-opacity:1;fill-rule:nonzero;stroke:none"
+       id="text3444"><tspan
+         x="0 6.552 12.336 19.164 24.948 31.284 37.068001"
+         y="0"
+         sodipodi:role="line"
+         id="tspan3436">Барабан</tspan><tspan
+         x="168.744 175.284 181.87199 186.252 192.84 199.392 205.368"
+         y="4.8959999"
+         sodipodi:role="line"
+         id="tspan3438">Вогонь </tspan><tspan
+         x="-144.15601 -137.79601 -131.14799 -123.48 -116.892 -111.588 -105"
+         y="0"
+         sodipodi:role="line"
+         id="tspan3440">димосос</tspan><tspan
+         x="-2.6400001 2.5320001 10.236 13.044 21.851999 27.504 33.504002 39.119999 153.53999 159.444 165.996 171.612 177.79201 184.38 190.12801 192.672 197.2092 204.0372 209.8212 216.14639 221.6904 227.06641 229.8744 -150.79201 -144.36 -138.972 -132.336 -126.252 -119.748 -113.292 -105.36 -99.348 -92.795998 -86.195999"
+         y="149.892"
+         sodipodi:role="line"
+         id="tspan3442">змішувачЗначок градусівохолодження</tspan></text>
+  </g>
+</svg>

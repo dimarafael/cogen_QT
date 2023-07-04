@@ -16,6 +16,7 @@ Window {
     property string colorMenuBg: "#404040"
     property string colorText: "#d4d4d4"
 
+    property bool btnSt: false
     Rectangle{
         anchors.fill: parent
         color: "black"
@@ -68,14 +69,6 @@ Window {
                         sourceSize.width: parent.width
                         fillMode: Image.PreserveAspectFit
                     }
-
-
-//                    Rectangle{
-//                        anchors.fill: parent
-//                        border.color: "blue"
-//                        border.width: 1
-//                        color: 'transparent'
-//                    }
                 }
 
                 Item{
@@ -90,13 +83,6 @@ Window {
                         txt: "00:00"
                         col: colorText
                     }
-
-//                    Rectangle{
-//                        anchors.fill: parent
-//                        border.color: "red"
-//                        border.width: 1
-//                        color: 'transparent'
-//                    }
                 }
 
                 Item{
@@ -108,48 +94,178 @@ Window {
                     anchors.topMargin: - height/5
                     height: parent.height/10
 
-                    Rectangle{
-                        anchors.fill: parent
-                        border.color: "green"
-                        border.width: 1
-                        color: 'transparent'
-
-                        Image {
-                            id: imageCrackTimer
-                            source: "img/Coffee_Bean.svg"
-                            anchors.left: parent.left
-                            anchors.top: parent.top
-                            anchors.bottom: parent.bottom
-                            width: parent.width/4
-                            sourceSize.width: parent.width
-                            fillMode: Image.PreserveAspectFit
-                        }
-                        Item{
-                            anchors.top: parent.top
-                            anchors.bottom: parent.bottom
-                            anchors.left: imageCrackTimer.right
-                            anchors.right: parent.right
-                            anchors.leftMargin: width/10
-                            TextFit {
-                                txt: "00:00"
-                                col: colorText
-                            }
-                        }
-
-
-
+                    Image {
+                        id: imageCrackTimer
+                        source: "img/Coffee_Bean.svg"
+                        anchors.left: parent.left
+                        anchors.top: parent.top
+                        anchors.bottom: parent.bottom
+                        width: parent.width/4
+                        sourceSize.width: parent.width
+                        fillMode: Image.PreserveAspectFit
                     }
-
-
-                    Rectangle{
-                        anchors.fill: parent
-                        border.color: "green"
-                        border.width: 1
-                        color: 'transparent'
+                    Item{
+                        anchors.top: parent.top
+                        anchors.bottom: parent.bottom
+                        anchors.left: imageCrackTimer.right
+                        anchors.right: parent.right
+                        anchors.leftMargin: width/10
+                        TextFit {
+                            txt: "00:00"
+                            col: colorText
+                        }
                     }
                 }
 
+                Item{
+                    id: itemStartButton
+                    anchors.left: parent.left
+                    anchors.right: parent.right
+                    anchors.top: itemCrackTimer.bottom
+                    height: parent.height/10
 
+                    MenuButton {
+                        textColor: colorText
+                        imageSource: "img/play.svg"
+                        buttonText: "START"
+                        onClicked: {
+                            console.log("Button START clicked")
+                            btnSt = ! btnSt
+                        }
+                        st: btnSt
+                    }
+
+                }
+                Item{
+                    id: itemCrackButton
+                    anchors.left: parent.left
+                    anchors.right: parent.right
+                    anchors.top: itemStartButton.bottom
+                    anchors.topMargin: -2
+                    height: parent.height/10
+
+                    MenuButton {
+                        textColor: colorText
+                        imageSource: "img/Coffee_Bean.svg"
+                        buttonText: "CRACK"
+                        onClicked: {
+                            console.log("Button CRACK clicked")
+                        }
+                        st: false
+                    }
+
+                }
+                Item {
+                    id: itemCrackButtonToDrumButton
+                    anchors.left: parent.left
+                    anchors.right: parent.right
+                    anchors.top: itemCrackButton.bottom
+                    height: parent.height/100
+                }
+                Item{
+                    id: itemDrumButton
+                    anchors.left: parent.left
+                    anchors.right: parent.right
+                    anchors.top: itemCrackButtonToDrumButton.bottom
+                    height: parent.height/10
+
+                    MenuButton {
+                        textColor: colorText
+                        imageSource: "img/drum.svg"
+                        buttonText: "DRUM"
+                        onClicked: {
+                            console.log("Button DRUM clicked")
+                        }
+                        st: false
+                    }
+
+                }
+                Item{
+                    id: itemFireButton
+                    anchors.left: parent.left
+                    anchors.right: parent.right
+                    anchors.top: itemDrumButton.bottom
+                    height: parent.height/10
+                    anchors.topMargin: -2
+
+                    MenuButton {
+                        textColor: colorText
+                        imageSource: "img/fire.svg"
+                        buttonText: "FIRE"
+                        onClicked: {
+                            console.log("Button FIRE clicked")
+                        }
+                        st: false
+                    }
+
+                }
+                Item{
+                    id: itemMixerButton
+                    anchors.left: parent.left
+                    anchors.right: parent.right
+                    anchors.top: itemFireButton.bottom
+                    height: parent.height/10
+                    anchors.topMargin: -2
+
+                    MenuButton {
+                        textColor: colorText
+                        imageSource: "img/mixer.svg"
+                        buttonText: "MIXER"
+                        onClicked: {
+                            console.log("Button MIXER clicked")
+                        }
+                        st: false
+                    }
+
+                }
+                Item{
+                    id: itemCoolerButton
+                    anchors.left: parent.left
+                    anchors.right: parent.right
+                    anchors.top: itemMixerButton.bottom
+                    height: parent.height/10
+                    anchors.topMargin: -2
+
+                    MenuButton {
+                        textColor: colorText
+                        imageSource: "img/cooler.svg"
+                        buttonText: "COOLER"
+                        onClicked: {
+                            console.log("Button COOLER clicked")
+                        }
+                        st: false
+                    }
+
+                }
+                Item {
+                    id: itemCoolerButtonToSettings
+                    anchors.left: parent.left
+                    anchors.right: parent.right
+                    anchors.top: itemCoolerButton.bottom
+                    height: parent.height/100
+                }
+                Item{
+                    id: itemSettingsButton
+                    anchors.left: parent.left
+                    anchors.right: parent.right
+                    anchors.top: itemCoolerButtonToSettings.bottom
+                    height: parent.height/10
+
+                    Image {
+                        source: "img/gear.svg"
+                        anchors.fill: parent
+                        anchors.margins: height/5
+                        sourceSize.width: parent.width
+                        fillMode: Image.PreserveAspectFit
+                    }
+                    MouseArea{
+                        anchors.fill: parent
+                        onClicked: {
+                            console.log("Button SETTINGS clicked")
+                        }
+                    }
+
+                }
 
             }
         }

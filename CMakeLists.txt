@@ -18,9 +18,16 @@ qt_add_qml_module(appcogen
     QML_FILES
         Main.qml
         TextFit.qml
+        MenuButton.qml
     RESOURCES
         img/logo.svg
         img/Coffee_Bean.svg
+        img/play.svg
+        img/gear.svg
+        img/drum.svg
+        img/fire.svg
+        img/mixer.svg
+        img/cooler.svg
 )
 
 set_target_properties(appcogen PROPERTIES
