@@ -10,6 +10,7 @@ void modbus::run()
     QModbusDataUnit du(QModbusDataUnit::HoldingRegisters,0,vData);
     QModbusReply *reply;
 
+    //Query result processing
     auto reply_result = [&](){
         if(!reply->error()){
             emit updateData(reply->result().values());

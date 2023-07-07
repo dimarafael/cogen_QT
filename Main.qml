@@ -313,8 +313,6 @@ Window {
                     color: colorMenuBg
                     radius: defMargin*2
 
-
-
                 }
 
             }
