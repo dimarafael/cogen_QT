@@ -9,6 +9,9 @@ AppManager::AppManager(QObject *parent) : QObject{parent}
     connect(mb, &modbus::updateData,[](QVector<quint16> data){
         qDebug() << data;
     });
+    connect(mb, &modbus::updateConnectedState,[](bool connected){
+        qDebug() << "Connect state: " << connected;
+    });
 }
 
 AppManager::~AppManager()

@@ -34,7 +34,11 @@ void modbus::run()
 
     //ModbusClient state changed
     auto stateChanged = [&](QModbusClient::State state){
-
+        if(mc.state() == QModbusDevice::ConnectedState){
+            emit updateConnectedState(true);
+        } else{
+            emit updateConnectedState(false);
+        }
     };
     connect(&mc, &QModbusClient::stateChanged, stateChanged);
 

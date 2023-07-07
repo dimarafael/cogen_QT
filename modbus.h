@@ -14,6 +14,7 @@ public:
 
 signals:
     void updateData(QVector<quint16> data);
+    void updateConnectedState(bool connected);
 };
 
 #endif // MODBUS_H
