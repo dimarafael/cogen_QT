@@ -12,9 +12,9 @@ Window {
     visible: true
     title: qsTr("Cogen")
 
-    property int defMargin: window.width/200
-    property string colorMenuBg: "#404040"
-    property string colorText: "#d4d4d4"
+    readonly property int defMargin: window.width/200
+    readonly property string colorMenuBg: "#404040"
+    readonly property string colorText: "#d4d4d4"
 
     property bool btnSt: false
     Rectangle{
@@ -130,9 +130,10 @@ Window {
                         buttonText: "START"
                         onClicked: {
                             console.log("Button START clicked")
-                            btnSt = ! btnSt
+//                            btnSt = ! btnSt
+                            appmanager.isButton1 = ! appmanager.isButton1
                         }
-                        st: btnSt
+                        st: appmanager.isButton1
                     }
 
                 }
@@ -150,6 +151,7 @@ Window {
                         buttonText: "CRACK"
                         onClicked: {
                             console.log("Button CRACK clicked")
+                            appmanager.performOperation()
                         }
                         st: false
                     }

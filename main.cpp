@@ -1,5 +1,7 @@
 #include <QGuiApplication>
 #include <QQmlApplicationEngine>
+#include <QQmlContext>
+#include <appmanager.h>
 
 
 int main(int argc, char *argv[])
@@ -9,6 +11,10 @@ int main(int argc, char *argv[])
     QGuiApplication app(argc, argv);
 
     QQmlApplicationEngine engine;
+
+    AppManager *appmanager = new AppManager(&app);
+    engine.rootContext()->setContextProperty("appmanager", appmanager);
+
     const QUrl url(u"qrc:/cogen/Main.qml"_qs);
     QObject::connect(&engine, &QQmlApplicationEngine::objectCreated,
         &app, [url](QObject *obj, const QUrl &objUrl) {
