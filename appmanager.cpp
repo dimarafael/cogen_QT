@@ -1,28 +1,36 @@
 #include "appmanager.h"
 #include <QDebug>
-
+#include <QThread>
 
 
 AppManager::AppManager(QObject *parent) : QObject{parent}
 {
-    mb = new modbus(this);
-    mb->start();
+    QThread *thread = new QThread;
+    mb = new modbus();
+    connect(thread, &QThread::started, mb, &modbus::pollModbus);
+    mb->moveToThread(thread);
+    thread->start();
 
-    connect(mb, &modbus::updateData,[](QVector<quint16> data){
+    auto parseModbusResponse = [&](QVector<quint16> data){
         qDebug() << data;
-    });
+        setIsButton1(data[0]>0);
+    };
+
+    connect(mb, &modbus::updateData, parseModbusResponse);
 
     auto updateConnectedState = [&](bool connected){
         setIsModbusConnected(connected);
         qDebug() << "Connect state: " << connected;
     };
     connect(mb, &modbus::updateConnectedState,updateConnectedState);
+
+    connect(this, &AppManager::writeRegister, mb, &modbus::writeHoldingRegister);
 }
 
 AppManager::~AppManager()
 {
-    mb->exit();
-    mb->wait();
+//    mb->exit();
+//    mb->wait();
 }
 
 bool AppManager::isButton1() const
@@ -41,6 +49,14 @@ void AppManager::setIsButton1(bool newIsButton1)
 void AppManager::performOperation()
 {
 
+}
+
+void AppManager::onClickButton1(bool val)
+{
+    qDebug()<< "Button 1 clicked, value: " << val;
+    setIsButton1(val);
+    qint16 value = val?1:0;
+    emit writeRegister(0,value);
 }
 
 bool AppManager::isModbusConnected() const

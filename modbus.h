@@ -1,20 +1,34 @@
 #ifndef MODBUS_H
 #define MODBUS_H
 
-#include <QThread>
 #include <QModbusTcpClient>
 #include <QVariant>
+#include <QTimer>
 
-class modbus : public QThread
+class modbus : public QObject
 {
     Q_OBJECT
-    void run();
 public:
-    explicit modbus(QObject *parent = nullptr);
+//    explicit modbus(QObject *parent = nullptr);
+    modbus();
+    ~modbus();
+
+public slots:
+    void writeHoldingRegister(int addr, qint16 value);
+    void pollModbus();
 
 signals:
     void updateData(QVector<quint16> data);
     void updateConnectedState(bool connected);
+
+private:
+    QModbusTcpClient *mc = nullptr;
+    QTimer *timer;
+    QVector<quint16> *vData;
+    QModbusDataUnit *du;
+    void processReplyResult();
+    void processStateChanged(QModbusClient::State state);
+    void timerTimeout();
 };
 
 #endif // MODBUS_H

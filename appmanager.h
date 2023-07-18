@@ -22,12 +22,13 @@ public:
 
 public slots:
     void performOperation();
+    void onClickButton1(bool val);
 
 signals:
-
     void isButton1Changed();
     void operationFinished();
     void isModbusConnectedChanged();
+    void writeRegister(int addr, qint16 value);
 
 private:
     bool m_isButton1;
