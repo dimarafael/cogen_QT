@@ -58,8 +58,8 @@ public slots:
     void onClickButtonMixer();
     void onClickButtonCooler();
 
-    void updateChart(QAbstractSeries *series);
     void startTrendlog(QAbstractSeries *series);
+    void stopTrendlog();
 
 signals:
     void isButton1Changed();

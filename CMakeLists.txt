@@ -24,6 +24,7 @@ qt_add_qml_module(appcogen
         MenuButton.qml
         TopMenuItem2Lines.qml
         TopMenuItem1Lines.qml
+        Stopwatch.qml
     RESOURCES
         img/logo.svg
         img/Coffee_Bean.svg

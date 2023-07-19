@@ -82,35 +82,14 @@ void AppManager::onClickButtonCooler()
     emit writeRegister(119,value);
 }
 
-void AppManager::updateChart(QAbstractSeries *series)
-{
-    if (series) {
-//        QXYSeries *xySeries = static_cast<QXYSeries *>(series);
-        QLineSeries *xySeries = static_cast<QLineSeries *>(series);
-        QList<QPointF> points;
-        points.reserve(5);
-//        points.append(QPointF(0.0,0.0));
-//        points.append(QPointF(1.0,1.2));
-//        points.append(QPointF(2.0,2.7));
-//        points.append(QPointF(3.0,4.3));
-//        points.append(QPointF(4.0,3.1));
-        points.append(QPointF(QDateTime(QDate(1970,01,01),QTime(01,00,00)).toMSecsSinceEpoch(),2.1));
-        points.append(QPointF(QDateTime(QDate(1970,01,01),QTime(02,00,00)).toMSecsSinceEpoch(),3.1));
-        points.append(QPointF(QDateTime(QDate(1970,01,01),QTime(03,00,00)).toMSecsSinceEpoch(),1.1));
-        points.append(QPointF(QDateTime(QDate(1970,01,01),QTime(04,00,00)).toMSecsSinceEpoch(),3.7));
-        points.append(QPointF(QDateTime(QDate(1970,01,01),QTime(05,00,00)).toMSecsSinceEpoch(),4.1));
-        qDebug()<< points;
-        // Use replace instead of clear + append, it's optimized for performance
-        xySeries->replace(points);
-//        xySeries->append(QDateTime(QDate(1970,01,01),QTime(01,00,00)).toMSecsSinceEpoch(),1.1);
-//        xySeries->append(QDateTime(QDate(1970,01,01),QTime(02,00,00)).toMSecsSinceEpoch(),2.1);
-//        xySeries->append(QDateTime(QDate(1970,01,01),QTime(05,00,00)).toMSecsSinceEpoch(),3.1);
-    }
-}
-
 void AppManager::startTrendlog(QAbstractSeries *series)
 {
     tSmokeTrendlog->startTrending(series);
+}
+
+void AppManager::stopTrendlog()
+{
+    tSmokeTrendlog->stopTrending();
 }
 
 void AppManager::parseModbusResponse(QVector<quint16> data)

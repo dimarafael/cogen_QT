@@ -77,9 +77,17 @@ Window {
                 anchors.margins: width/20
                 height: parent.height/10
 
-                TextFit {
-                    txt: "00:00"
-                    col: colorText
+                Stopwatch{
+                    id: stopwatchMain
+                    textColor: colorText
+                    onStarted: {
+                        appmanager.startTrendlog(chartView.series("Spline1"))
+                        stopwatchCrack.resetTimer()
+                    }
+                    onStoped: {
+                        appmanager.stopTrendlog()
+                        stopwatchCrack.stopTimer()
+                    }
                 }
             }
 
@@ -108,9 +116,9 @@ Window {
                     anchors.left: imageCrackTimer.right
                     anchors.right: parent.right
                     anchors.leftMargin: width/10
-                    TextFit {
-                        txt: "00:00"
-                        col: colorText
+                    Stopwatch{
+                        id: stopwatchCrack
+                        textColor: colorText
                     }
                 }
             }
@@ -127,9 +135,10 @@ Window {
                     imageSource: "img/play.svg"
                     buttonText: "START"
                     onClicked: {
-                        appmanager.onClickButton1(! appmanager.isButton1);
+                        stopwatchMain.isRunning?stopwatchMain.stopTimer():stopwatchMain.startTimer()
+
                     }
-                    st: appmanager.isButton1
+                    st: stopwatchMain.isRunning
                 }
 
             }
@@ -146,10 +155,11 @@ Window {
                     imageSource: "img/Coffee_Bean.svg"
                     buttonText: "CRACK"
                     onClicked: {
-                        console.log("Button CRACK clicked")
-                        appmanager.performOperation()
+                        if(stopwatchMain.isRunning){
+                            stopwatchCrack.startTimer()
+                        }
                     }
-                    st: false
+                    st: stopwatchCrack.isRunning
                 }
 
             }
@@ -262,8 +272,6 @@ Window {
                     anchors.fill: parent
                     onClicked: {
                         console.log("Button SETTINGS clicked")
-//                        appmanager.updateChart(chartView.series("Spline1"))
-                        appmanager.startTrendlog(chartView.series("Spline1"))
                     }
                 }
 
@@ -418,8 +426,8 @@ Window {
 
                         ValueAxis {
                             id: chartYAxis
-                            min: -1
-                            max: 5
+                            min: 0
+                            max: 10
                         }
 
                         SplineSeries {
