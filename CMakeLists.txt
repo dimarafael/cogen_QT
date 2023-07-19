@@ -5,13 +5,14 @@ project(cogen VERSION 0.1 LANGUAGES CXX)
 set(CMAKE_AUTOMOC ON)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-find_package(Qt6 6.2 REQUIRED COMPONENTS Quick SerialBus)
+find_package(Qt6 6.2 REQUIRED COMPONENTS Quick SerialBus Charts)
 
 
 qt_add_executable(appcogen
     main.cpp
     appmanager.h appmanager.cpp
     modbus.h modbus.cpp
+    trendlog.h trendlog.cpp
 )
 
 qt_add_qml_module(appcogen
@@ -21,6 +22,8 @@ qt_add_qml_module(appcogen
         Main.qml
         TextFit.qml
         MenuButton.qml
+        TopMenuItem2Lines.qml
+        TopMenuItem1Lines.qml
     RESOURCES
         img/logo.svg
         img/Coffee_Bean.svg
@@ -30,6 +33,8 @@ qt_add_qml_module(appcogen
         img/fire.svg
         img/mixer.svg
         img/cooler.svg
+        img/air.svg
+        img/fan.svg
 )
 
 set_target_properties(appcogen PROPERTIES
@@ -43,6 +48,7 @@ set_target_properties(appcogen PROPERTIES
 target_link_libraries(appcogen
     PRIVATE Qt6::Quick
     PRIVATE Qt6::SerialBus
+    PRIVATE Qt6::Charts
 )
 
 install(TARGETS appcogen

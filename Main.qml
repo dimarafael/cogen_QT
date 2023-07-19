@@ -4,6 +4,7 @@ import QtQuick.Layouts
 //import QtQuick.VirtualKeyboard
 import QtQuick.Controls
 import Qt5Compat.GraphicalEffects
+import QtCharts
 
 Window {
     id: window
@@ -126,9 +127,6 @@ Window {
                     imageSource: "img/play.svg"
                     buttonText: "START"
                     onClicked: {
-//                        console.log("Button START clicked")
-//                            btnSt = ! btnSt
-//                        appmanager.isButton1 = ! appmanager.isButton1
                         appmanager.onClickButton1(! appmanager.isButton1);
                     }
                     st: appmanager.isButton1
@@ -174,9 +172,9 @@ Window {
                     imageSource: "img/drum.svg"
                     buttonText: "DRUM"
                     onClicked: {
-                        console.log("Button DRUM clicked")
+                        appmanager.onClickButtonDrum()
                     }
-                    st: false
+                    st: appmanager.buttonDrum
                 }
 
             }
@@ -193,9 +191,9 @@ Window {
                     imageSource: "img/fire.svg"
                     buttonText: "FIRE"
                     onClicked: {
-                        console.log("Button FIRE clicked")
+                        appmanager.onClickButtonFire()
                     }
-                    st: false
+                    st: appmanager.buttonFire
                 }
 
             }
@@ -212,9 +210,9 @@ Window {
                     imageSource: "img/mixer.svg"
                     buttonText: "MIXER"
                     onClicked: {
-                        console.log("Button MIXER clicked")
+                        appmanager.onClickButtonMixer()
                     }
-                    st: false
+                    st: appmanager.buttonMixer
                 }
 
             }
@@ -231,12 +229,13 @@ Window {
                     imageSource: "img/cooler.svg"
                     buttonText: "COOLER"
                     onClicked: {
-                        console.log("Button COOLER clicked")
+                        appmanager.onClickButtonCooler()
                     }
-                    st: false
+                    st: appmanager.buttonCooler
                 }
 
             }
+            // space between buttons
             Item {
                 id: itemCoolerButtonToSettings
                 anchors.left: parent.left
@@ -244,6 +243,7 @@ Window {
                 anchors.top: itemCoolerButton.bottom
                 height: parent.height/100
             }
+
             Item{
                 id: itemSettingsButton
                 anchors.left: parent.left
@@ -262,6 +262,8 @@ Window {
                     anchors.fill: parent
                     onClicked: {
                         console.log("Button SETTINGS clicked")
+//                        appmanager.updateChart(chartView.series("Spline1"))
+                        appmanager.startTrendlog(chartView.series("Spline1"))
                     }
                 }
 
@@ -292,6 +294,86 @@ Window {
                 anchors.fill: parent
                 color: colorMenuBg
                 radius: defMargin*2
+                Item{
+                    id: itemTopMenu1
+                    height: parent.height
+                    width: parent.width/6
+                    anchors.top: parent.top
+                    anchors.left: parent.left
+                    anchors.bottom: parent.bottom
+                    TopMenuItem2Lines {
+                        txtCol:  "#2563eb"
+                        text1: appmanager.temperatureSmoke.toFixed(1)+"°C"
+                        text2: "AIR"
+                        img: "img/air.svg"
+                    }
+                }
+                Item{
+                    id: itemTopMenu2
+                    height: parent.height
+                    width: parent.width/6
+                    anchors.top: parent.top
+                    anchors.left: itemTopMenu1.right
+                    anchors.bottom: parent.bottom
+                    TopMenuItem2Lines {
+                        txtCol:  "#e11d48"
+                        text1: appmanager.temperatureProduct.toFixed(1)+"°C"
+                        text2: "BEANS"
+                        img: "img/Coffee_Bean.svg"
+                    }
+                }
+                Item{
+                    id: itemTopMenu3
+                    height: parent.height
+                    width: parent.width/6
+                    anchors.top: parent.top
+                    anchors.left: itemTopMenu2.right
+                    anchors.bottom: parent.bottom
+                    TopMenuItem1Lines {
+                        txtCol:  "#ca8a04"
+                        text1: appmanager.temperatureProduct.toFixed(1)+"°C"
+                        imgText: "RoR"
+                    }
+                }
+                Item{
+                    id: itemTopMenu4
+                    height: parent.height
+                    width: parent.width/6
+                    anchors.top: parent.top
+                    anchors.left: itemTopMenu3.right
+                    anchors.bottom: parent.bottom
+                    TopMenuItem1Lines {
+                        txtCol:  "#16a34a"
+                        text1: "00"
+                        img: "img/fire.svg"
+                    }
+                }
+                Item{
+                    id: itemTopMenu5
+                    height: parent.height
+                    width: parent.width/6
+                    anchors.top: parent.top
+                    anchors.left: itemTopMenu4.right
+                    anchors.bottom: parent.bottom
+                    TopMenuItem1Lines {
+                        txtCol:  "#ea580c"
+                        text1: "00 rpm"
+                        img: "img/drum.svg"
+                    }
+                }
+                Item{
+                    id: itemTopMenu6
+                    height: parent.height
+                    width: parent.width/6
+                    anchors.top: parent.top
+                    anchors.left: itemTopMenu5.right
+                    anchors.bottom: parent.bottom
+                    TopMenuItem1Lines {
+                        txtCol:  "#9333ea"
+                        text1: "00%"
+                        img: "img/fan.svg"
+                    }
+                }
             }
 
         }
@@ -309,6 +391,52 @@ Window {
                 anchors.fill: parent
                 color: colorMenuBg
                 radius: defMargin*2
+
+                Item {
+                    anchors.fill: parent
+
+
+                    ChartView {
+                        id: chartView
+//                        title: "Spline Chart"
+                        anchors.fill: parent
+                        antialiasing: true
+
+                        DateTimeAxis {
+                           id: chartXAxis
+                           min: new Date(1970, 0, 1, 1, 0, 0, 0) // 00:00
+                           max: new Date(1970, 0, 1, 1, 1, 0, 0) // 01:00
+                           format: "mm:ss"
+                           tickCount: 7
+                           labelsColor: "blue"
+//                           gridVisible: false
+                           lineVisible: true
+//                           titleText: "Time (hh:mm)"
+//                           titleFont.pointSize: 10
+                        }
+
+
+                        ValueAxis {
+                            id: chartYAxis
+                            min: -1
+                            max: 5
+                        }
+
+                        SplineSeries {
+                            name: "Spline1"
+                            axisY: chartYAxis
+                            axisX: chartXAxis
+//                            XYPoint { x: new Date(1970, 1, 1, 0, 0, 0, 0); y: 0.0 }
+//                            XYPoint { x: new Date(1970, 1, 1, 1, 0, 0, 0); y: 3.2 }
+//                            XYPoint { x: new Date(1970, 1, 1, 2, 0, 0, 0); y: 2.4 }
+//                            XYPoint { x: new Date(1970, 1, 1, 3, 0, 0, 0); y: 2.1 }
+//                            XYPoint { x: new Date(1970, 1, 1, 4, 0, 0, 0); y: 2.6 }
+//                            XYPoint { x: new Date(1970, 1, 1, 4, 30, 0, 0); y: 2.3 }
+//                            XYPoint { x: new Date(1970, 1, 1, 5, 0, 0, 0); y: 3.1 }
+                        }
+                    }
+
+                }
 
             }
 

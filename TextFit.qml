@@ -4,6 +4,7 @@ import QtQuick.Controls
 Text{
     property string txt: ""
     property string col: "#ffffff"
+
     text: txt
     color: col
     anchors.fill: parent

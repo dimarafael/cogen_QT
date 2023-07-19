@@ -50,13 +50,22 @@ modbus::modbus(){
     mc->setConnectionParameter(QModbusDevice::NetworkAddressParameter, "127.0.0.1");
     mc->setConnectionParameter(QModbusDevice::NetworkPortParameter, 502);
     timer = new QTimer(this);
-    vData = new QVector<quint16>(4);
-    du = new QModbusDataUnit(QModbusDataUnit::HoldingRegisters,0,*vData);
+    vData = new QVector<quint16>(100);
+    du = new QModbusDataUnit(QModbusDataUnit::HoldingRegisters,99,*vData);
     connect(mc, &QModbusClient::stateChanged, this, &modbus::processStateChanged);
 }
 
 modbus::~modbus(){
-    mc->disconnect();
+    if(mc) mc->disconnect();
+    delete mc;
+}
+
+float modbus::toFloat(quint16 low, quint16 high)
+{
+    quint32 joined = ((quint32)high<<16)|low;
+    float f;
+    memcpy(&f, &joined, sizeof f);
+    return f;
 }
 
 void modbus::writeHoldingRegister(int addr, qint16 value){

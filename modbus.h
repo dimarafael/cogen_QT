@@ -12,6 +12,7 @@ public:
 //    explicit modbus(QObject *parent = nullptr);
     modbus();
     ~modbus();
+    static float toFloat(quint16 low, quint16 high);
 
 public slots:
     void writeHoldingRegister(int addr, qint16 value);
