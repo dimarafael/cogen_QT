@@ -16,6 +16,9 @@ Window {
     readonly property int defMargin: window.width/200
     readonly property string colorMenuBg: "#404040"
     readonly property string colorText: "#d4d4d4"
+    readonly property string colorAir: "#2563eb"
+    readonly property string colorProduct: "#e11d48"
+    readonly property string colorROR: "#ca8a04"
 
     property bool btnSt: false
     //Background
@@ -81,7 +84,7 @@ Window {
                     id: stopwatchMain
                     textColor: colorText
                     onStarted: {
-                        appmanager.startTrendlog(chartView.series("Spline1"))
+                        appmanager.startTrendlog(chartView.series("temperatureSmoke"))
                         stopwatchCrack.resetTimer()
                     }
                     onStoped: {
@@ -310,7 +313,7 @@ Window {
                     anchors.left: parent.left
                     anchors.bottom: parent.bottom
                     TopMenuItem2Lines {
-                        txtCol:  "#2563eb"
+                        txtCol:  colorAir
                         text1: appmanager.temperatureSmoke.toFixed(1)+"°C"
                         text2: "AIR"
                         img: "img/air.svg"
@@ -324,7 +327,7 @@ Window {
                     anchors.left: itemTopMenu1.right
                     anchors.bottom: parent.bottom
                     TopMenuItem2Lines {
-                        txtCol:  "#e11d48"
+                        txtCol:  colorProduct
                         text1: appmanager.temperatureProduct.toFixed(1)+"°C"
                         text2: "BEANS"
                         img: "img/Coffee_Bean.svg"
@@ -338,7 +341,7 @@ Window {
                     anchors.left: itemTopMenu2.right
                     anchors.bottom: parent.bottom
                     TopMenuItem1Lines {
-                        txtCol:  "#ca8a04"
+                        txtCol:  colorROR
                         text1: appmanager.temperatureProduct.toFixed(1)+"°C"
                         imgText: "RoR"
                     }
@@ -406,9 +409,10 @@ Window {
 
                     ChartView {
                         id: chartView
-//                        title: "Spline Chart"
                         anchors.fill: parent
                         antialiasing: true
+                        backgroundColor: "transparent"
+                        legend.visible: false
 
                         DateTimeAxis {
                            id: chartXAxis
@@ -416,31 +420,44 @@ Window {
                            max: new Date(1970, 0, 1, 1, 1, 0, 0) // 01:00
                            format: "mm:ss"
                            tickCount: 7
-                           labelsColor: "blue"
-//                           gridVisible: false
+                           labelsColor: colorText
+                           gridVisible: true
                            lineVisible: true
-//                           titleText: "Time (hh:mm)"
-//                           titleFont.pointSize: 10
                         }
 
 
                         ValueAxis {
                             id: chartYAxis
                             min: 0
-                            max: 10
+                            max: 300
+                            labelsColor: colorText
+                        }
+                        ValueAxis {
+                            id: chartYAxisROR
+                            min: 0
+                            max: 20
+                            labelsColor: colorText
                         }
 
                         SplineSeries {
-                            name: "Spline1"
+                            name: "temperatureSmoke"
                             axisY: chartYAxis
                             axisX: chartXAxis
-//                            XYPoint { x: new Date(1970, 1, 1, 0, 0, 0, 0); y: 0.0 }
-//                            XYPoint { x: new Date(1970, 1, 1, 1, 0, 0, 0); y: 3.2 }
-//                            XYPoint { x: new Date(1970, 1, 1, 2, 0, 0, 0); y: 2.4 }
-//                            XYPoint { x: new Date(1970, 1, 1, 3, 0, 0, 0); y: 2.1 }
-//                            XYPoint { x: new Date(1970, 1, 1, 4, 0, 0, 0); y: 2.6 }
-//                            XYPoint { x: new Date(1970, 1, 1, 4, 30, 0, 0); y: 2.3 }
-//                            XYPoint { x: new Date(1970, 1, 1, 5, 0, 0, 0); y: 3.1 }
+                            color: colorAir
+                        }
+
+                        SplineSeries {
+                            name: "temperatureProduct"
+                            axisY: chartYAxis
+                            axisX: chartXAxis
+                            color: colorProduct
+                        }
+
+                        SplineSeries {
+                            name: "temperatureROR"
+                            axisYRight: chartYAxisROR
+                            axisX: chartXAxis
+                            color: colorROR
                         }
                     }
 
