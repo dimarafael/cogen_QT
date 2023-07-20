@@ -305,7 +305,7 @@ Window {
             anchors.topMargin: defMargin
             anchors.leftMargin: defMargin
             anchors.rightMargin: defMargin
-
+            z:2
             Rectangle{
                 id: rectangleTopMenuContent
                 anchors.fill: parent
@@ -365,7 +365,31 @@ Window {
                         text1: appmanager.gazPreset
                         img: "img/fire.svg"
                     }
+                    MouseArea{
+                        anchors.fill: parent
+                        onClicked: {
+                            popUpFire.visible = !popUpFire.visible
+                        }
+                    }
                 }
+                //PopUp fire level
+                PopUpPlusMinus{
+                    id: popUpFire
+                    visible: false
+                    width: itemRight.width/4
+                    height: itemTopMenu.height
+                    color: colorText
+                    radius: defMargin*2
+                    anchors.top: itemTopMenu4.bottom
+                    anchors.horizontalCenter: itemTopMenu4.horizontalCenter
+                    onMinusClicked: {
+                        if(appmanager.gazPreset>1) appmanager.onSetFireLevel(appmanager.gazPreset-1)
+                    }
+                    onPlusClicked: {
+                        if(appmanager.gazPreset<9) appmanager.onSetFireLevel(appmanager.gazPreset+1)
+                    }
+                }
+
                 Item{
                     id: itemTopMenu5
                     height: parent.height
@@ -405,7 +429,7 @@ Window {
             anchors.left: parent.left
             anchors.right: parent.right
             anchors.margins: defMargin
-
+            z:1
             Rectangle{
                 id: rectangleMainContent
                 anchors.fill: parent
@@ -482,6 +506,8 @@ Window {
 
 
     }
+
+
 
     //PopUp Modbus connection error
     Item{

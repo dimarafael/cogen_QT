@@ -10,7 +10,7 @@ Text{
     anchors.fill: parent
     width: parent.width
     height: parent.height
-    font.pointSize: 50
+    font.pointSize: 150
     minimumPointSize: 2
     fontSizeMode: Text.Fit
     horizontalAlignment: Text.AlignHCenter

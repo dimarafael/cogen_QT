@@ -74,6 +74,8 @@ public slots:
     void onClickButtonMixer();
     void onClickButtonCooler();
 
+    void onSetFireLevel(int lvl);
+
     void startTrendlog(QAbstractSeries *tSmokeSeries, QAbstractSeries *tProductSeries, QAbstractSeries *tRORSeries);
     void stopTrendlog();
 

@@ -63,6 +63,12 @@ void AppManager::onClickButtonCooler()
     emit writeRegister(119,value);
 }
 
+void AppManager::onSetFireLevel(int lvl)
+{
+    setGazPreset(lvl);
+    emit writeRegister(168,lvl);
+}
+
 void AppManager::startTrendlog(QAbstractSeries *tSmokeSeries, QAbstractSeries *tProductSeries, QAbstractSeries *tRORSeries)
 {
     tSmokeTrendlog->startTrending(tSmokeSeries);
