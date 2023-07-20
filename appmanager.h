@@ -10,7 +10,6 @@
 class AppManager : public QObject
 {
     Q_OBJECT
-    Q_PROPERTY(bool isButton1 READ isButton1 WRITE setIsButton1 NOTIFY isButton1Changed)
     Q_PROPERTY(bool isModbusConnected READ isModbusConnected WRITE setIsModbusConnected NOTIFY isModbusConnectedChanged)
     Q_PROPERTY(bool buttonDrum READ buttonDrum WRITE setButtonDrum NOTIFY buttonDrumChanged)
     Q_PROPERTY(bool buttonFire READ buttonFire WRITE setButtonFire NOTIFY buttonFireChanged)
@@ -19,13 +18,16 @@ class AppManager : public QObject
     Q_PROPERTY(float temperatureSmoke READ temperatureSmoke WRITE setTemperatureSmoke NOTIFY temperatureSmokeChanged)
     Q_PROPERTY(float temperatureProduct READ temperatureProduct WRITE setTemperatureProduct NOTIFY temperatureProductChanged)
     Q_PROPERTY(float temperatureROR READ temperatureROR WRITE setTemperatureROR NOTIFY temperatureRORChanged)
+    Q_PROPERTY(float dP READ dP WRITE setDP NOTIFY dPChanged)
+    Q_PROPERTY(float drumSP READ drumSP WRITE setDrumSP NOTIFY drumSPChanged)
+    Q_PROPERTY(float fanSP READ fanSP WRITE setFanSP NOTIFY fanSPChanged)
+    Q_PROPERTY(bool alarmState READ alarmState WRITE setAlarmState NOTIFY alarmStateChanged)
+    Q_PROPERTY(int gazPreset READ gazPreset WRITE setGazPreset NOTIFY gazPresetChanged)
 
 
 public:
     explicit AppManager(QObject *parent = nullptr);
     ~AppManager();
-    bool isButton1() const;
-    void setIsButton1(bool newIsButton1);
 
     bool isModbusConnected() const;
     void setIsModbusConnected(bool newIsModbusConnected);
@@ -51,18 +53,31 @@ public:
     float temperatureROR() const;
     void setTemperatureROR(float newTemperatureROR);
 
+    float dP() const;
+    void setDP(float newDP);
+
+    float drumSP() const;
+    void setDrumSP(float newDrumSP);
+
+    float fanSP() const;
+    void setFanSP(float newFanSP);
+
+    bool alarmState() const;
+    void setAlarmState(bool newAlarmState);
+
+    int gazPreset() const;
+    void setGazPreset(int newGazPreset);
+
 public slots:
-    void onClickButton1(bool val);
     void onClickButtonDrum();
     void onClickButtonFire();
     void onClickButtonMixer();
     void onClickButtonCooler();
 
-    void startTrendlog(QAbstractSeries *series);
+    void startTrendlog(QAbstractSeries *tSmokeSeries, QAbstractSeries *tProductSeries, QAbstractSeries *tRORSeries);
     void stopTrendlog();
 
 signals:
-    void isButton1Changed();
     void isModbusConnectedChanged();
     void writeRegister(int addr, qint16 value);
 
@@ -80,11 +95,22 @@ signals:
 
     void temperatureRORChanged();
 
+    void dPChanged();
+
+    void drumSPChanged();
+
+    void fanSPChanged();
+
+    void alarmStateChanged();
+
+    void gazPresetChanged();
+
 private:
     modbus *mb;
     Trendlog *tSmokeTrendlog;
+    Trendlog *tProductTrendlog;
+    Trendlog *tRORTrendlog;
     void parseModbusResponse(QVector<quint16> data);
-    bool m_isButton1;
     bool m_isModbusConnected;
     bool m_buttonDrum;
     bool m_buttonFire;
@@ -93,6 +119,11 @@ private:
     float m_temperatureSmoke;
     float m_temperatureProduct;
     float m_temperatureROR;
+    float m_dP;
+    float m_drumSP;
+    float m_fanSP;
+    bool m_alarmState;
+    int m_gazPreset;
 };
 
 #endif // APPMANAGER_H

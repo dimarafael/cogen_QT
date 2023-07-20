@@ -84,12 +84,18 @@ Window {
                     id: stopwatchMain
                     textColor: colorText
                     onStarted: {
-                        appmanager.startTrendlog(chartView.series("temperatureSmoke"))
+                        appmanager.startTrendlog(chartView.series("temperatureSmoke"),
+                                                 chartView.series("temperatureProduct"),
+                                                 chartView.series("temperatureROR"))
                         stopwatchCrack.resetTimer()
                     }
                     onStoped: {
                         appmanager.stopTrendlog()
                         stopwatchCrack.stopTimer()
+                    }
+                    onTrig59s: {
+                        var x = Math.round(chartView.series("temperatureSmoke").count / 60) + 1
+                        chartXAxis.max = new Date(1970, 0, 1, 1, x, 0, 0)
                     }
                 }
             }
@@ -314,7 +320,8 @@ Window {
                     anchors.bottom: parent.bottom
                     TopMenuItem2Lines {
                         txtCol:  colorAir
-                        text1: appmanager.temperatureSmoke.toFixed(1)+"°C"
+//                        text1: appmanager.temperatureSmoke.toFixed(0)+"°C"
+                        text1: Math.round(appmanager.temperatureSmoke)+"°C"
                         text2: "AIR"
                         img: "img/air.svg"
                     }
@@ -328,7 +335,7 @@ Window {
                     anchors.bottom: parent.bottom
                     TopMenuItem2Lines {
                         txtCol:  colorProduct
-                        text1: appmanager.temperatureProduct.toFixed(1)+"°C"
+                        text1: Math.round(appmanager.temperatureProduct)+"°C"
                         text2: "BEANS"
                         img: "img/Coffee_Bean.svg"
                     }
@@ -342,7 +349,7 @@ Window {
                     anchors.bottom: parent.bottom
                     TopMenuItem1Lines {
                         txtCol:  colorROR
-                        text1: appmanager.temperatureProduct.toFixed(1)+"°C"
+                        text1: appmanager.temperatureROR.toFixed(1)+"°C"
                         imgText: "RoR"
                     }
                 }
@@ -355,7 +362,7 @@ Window {
                     anchors.bottom: parent.bottom
                     TopMenuItem1Lines {
                         txtCol:  "#16a34a"
-                        text1: "00"
+                        text1: appmanager.gazPreset
                         img: "img/fire.svg"
                     }
                 }
@@ -366,9 +373,10 @@ Window {
                     anchors.top: parent.top
                     anchors.left: itemTopMenu4.right
                     anchors.bottom: parent.bottom
-                    TopMenuItem1Lines {
+                    TopMenuItem2Lines {
                         txtCol:  "#ea580c"
-                        text1: "00 rpm"
+                        text1: Math.round(appmanager.drumSP)
+                        text2: "rpm"
                         img: "img/drum.svg"
                     }
                 }
@@ -379,9 +387,10 @@ Window {
                     anchors.top: parent.top
                     anchors.left: itemTopMenu5.right
                     anchors.bottom: parent.bottom
-                    TopMenuItem1Lines {
+                    TopMenuItem2Lines {
                         txtCol:  "#9333ea"
-                        text1: "00%"
+                        text1: Math.round(appmanager.fanSP)+"%"
+                        text2: Math.round(appmanager.dP)+"Pa"
                         img: "img/fan.svg"
                     }
                 }
@@ -444,6 +453,7 @@ Window {
                             axisY: chartYAxis
                             axisX: chartXAxis
                             color: colorAir
+                            width: 3
                         }
 
                         SplineSeries {
@@ -451,6 +461,7 @@ Window {
                             axisY: chartYAxis
                             axisX: chartXAxis
                             color: colorProduct
+                            width: 3
                         }
 
                         SplineSeries {
@@ -458,6 +469,7 @@ Window {
                             axisYRight: chartYAxisROR
                             axisX: chartXAxis
                             color: colorROR
+                            width: 3
                         }
                     }
 

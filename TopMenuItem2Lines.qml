@@ -6,12 +6,12 @@ import QtQuick.Controls
 import Qt5Compat.GraphicalEffects
 
 Item{
+    id: root
     property string text1: "000"
     property string text2: "AAA"
     property string txtCol: "red"
     property string img: ""
 
-    id: itemTopMenu1
     anchors.fill: parent
     width: parent.width
     height: parent.height

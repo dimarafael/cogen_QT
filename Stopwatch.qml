@@ -1,27 +1,29 @@
 import QtQuick
 
 Item {
+    id: root
     anchors.fill: parent
     width: parent.width
     height: parent.height
-    property string textColor: "#ffffff"
+    property alias textColor: textTime.color
     property bool isRunning: false
 
     property date startDate
 
     signal started()
     signal stoped()
+    signal trig59s()
 
     function startTimer(){
         timer1s.start()
-        isRunning = true
-        started()
-        startDate = new Date()
+        root.isRunning = true
+        root.started()
+        root.startDate = new Date()
     }
     function stopTimer(){
         timer1s.stop()
-        isRunning = false
-        stoped()
+        root.isRunning = false
+        root.stoped()
     }
     function resetTimer(){
         textTime.text = "00:00"
@@ -30,7 +32,7 @@ Item {
     Text{
         id:textTime
         text: "00:00"
-        color: textColor
+        color: "#ffffff"
         anchors.fill: parent
         width: parent.width
         height: parent.height
@@ -48,6 +50,7 @@ Item {
         triggeredOnStart: true
         onTriggered: {
             textTime.text = Qt.formatTime(new Date(new Date() - startDate),"mm:ss")
+            if(Qt.formatTime(new Date(new Date() - startDate),"ss") === "59") root.trig59s()
         }
     }
 }

@@ -10,6 +10,8 @@ AppManager::AppManager(QObject *parent) : QObject{parent}
     QThread *thread = new QThread;
     mb = new modbus();
     tSmokeTrendlog = new Trendlog(this);
+    tProductTrendlog = new Trendlog(this);
+    tRORTrendlog = new Trendlog(this);
 
     connect(thread, &QThread::started, mb, &modbus::pollModbus);
     mb->moveToThread(thread);
@@ -30,27 +32,6 @@ AppManager::~AppManager()
 {
 
     delete tSmokeTrendlog;
-}
-
-bool AppManager::isButton1() const
-{
-    return m_isButton1;
-}
-
-void AppManager::setIsButton1(bool newIsButton1)
-{
-    if (m_isButton1 == newIsButton1)
-        return;
-    m_isButton1 = newIsButton1;
-    emit isButton1Changed();
-}
-
-void AppManager::onClickButton1(bool val)
-{
-    qDebug()<< "Button 1 clicked, value: " << val;
-    setIsButton1(val);
-    qint16 value = val?1:0;
-    emit writeRegister(99,value);
 }
 
 void AppManager::onClickButtonDrum()
@@ -82,28 +63,45 @@ void AppManager::onClickButtonCooler()
     emit writeRegister(119,value);
 }
 
-void AppManager::startTrendlog(QAbstractSeries *series)
+void AppManager::startTrendlog(QAbstractSeries *tSmokeSeries, QAbstractSeries *tProductSeries, QAbstractSeries *tRORSeries)
 {
-    tSmokeTrendlog->startTrending(series);
+    tSmokeTrendlog->startTrending(tSmokeSeries);
+    tProductTrendlog->startTrending(tProductSeries);
+    tRORTrendlog->startTrending(tRORSeries);
 }
 
 void AppManager::stopTrendlog()
 {
     tSmokeTrendlog->stopTrending();
+    tProductTrendlog->stopTrending();
+    tRORTrendlog->stopTrending();
 }
 
 void AppManager::parseModbusResponse(QVector<quint16> data)
 {
-    qDebug() << data;
-    setIsButton1(data[0]>0);
-    setButtonDrum(data[13]>0);
-    setButtonFire(data[23]>0);
-    setButtonMixer(data[14]>0);
-    setButtonCooler(data[20]>0);
+//    qDebug() << data;
+    setTemperatureProduct(modbus::toFloat(data[3], data[4]));
+    tProductTrendlog->setValue(temperatureProduct());
     setTemperatureSmoke(modbus::toFloat(data[5], data[6]));
     tSmokeTrendlog->setValue(temperatureSmoke());
-    setTemperatureProduct(modbus::toFloat(data[3], data[4]));
+
+    setDP(modbus::toFloat(data[9], data[10]));
+
+
+    setButtonDrum(data[13]>0);
+    setButtonMixer(data[14]>0);
+    setDrumSP(modbus::toFloat(data[15], data[16]));
+    setFanSP(modbus::toFloat(data[18], data[19]));
+    setButtonCooler(data[20]>0);
+
+    setButtonFire(data[23]>0);
+
+    setAlarmState(data[27]>0);
+
     setTemperatureROR(modbus::toFloat(data[45], data[46]));
+    tRORTrendlog->setValue(temperatureROR());
+
+    setGazPreset(data[69]);
 }
 
 bool AppManager::isModbusConnected() const
@@ -208,4 +206,69 @@ void AppManager::setTemperatureROR(float newTemperatureROR)
         return;
     m_temperatureROR = newTemperatureROR;
     emit temperatureRORChanged();
+}
+
+float AppManager::dP() const
+{
+    return m_dP;
+}
+
+void AppManager::setDP(float newDP)
+{
+    if (qFuzzyCompare(m_dP, newDP))
+        return;
+    m_dP = newDP;
+    emit dPChanged();
+}
+
+float AppManager::drumSP() const
+{
+    return m_drumSP;
+}
+
+void AppManager::setDrumSP(float newDrumSP)
+{
+    if (qFuzzyCompare(m_drumSP, newDrumSP))
+        return;
+    m_drumSP = newDrumSP;
+    emit drumSPChanged();
+}
+
+float AppManager::fanSP() const
+{
+    return m_fanSP;
+}
+
+void AppManager::setFanSP(float newFanSP)
+{
+    if (qFuzzyCompare(m_fanSP, newFanSP))
+        return;
+    m_fanSP = newFanSP;
+    emit fanSPChanged();
+}
+
+bool AppManager::alarmState() const
+{
+    return m_alarmState;
+}
+
+void AppManager::setAlarmState(bool newAlarmState)
+{
+    if (m_alarmState == newAlarmState)
+        return;
+    m_alarmState = newAlarmState;
+    emit alarmStateChanged();
+}
+
+int AppManager::gazPreset() const
+{
+    return m_gazPreset;
+}
+
+void AppManager::setGazPreset(int newGazPreset)
+{
+    if (m_gazPreset == newGazPreset)
+        return;
+    m_gazPreset = newGazPreset;
+    emit gazPresetChanged();
 }
