@@ -31,6 +31,7 @@ qt_add_qml_module(appcogen
         img/logo.svg
         img/Coffee_Bean.svg
         img/play.svg
+        img/stop.svg
         img/gear.svg
         img/drum.svg
         img/fire.svg

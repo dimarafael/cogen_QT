@@ -145,12 +145,14 @@ Window {
                 MenuButton {
                     textColor: colorText
                     imageSource: "img/play.svg"
+                    image2Source: "img/stop.svg"
                     buttonText: "START"
+                    button2Text: "STOP"
                     onClicked: {
                         stopwatchMain.isRunning?stopwatchMain.stopTimer():stopwatchMain.startTimer()
 
                     }
-                    st: stopwatchMain.isRunning
+                    st2: stopwatchMain.isRunning
                 }
 
             }
@@ -171,7 +173,7 @@ Window {
                             stopwatchCrack.startTimer()
                         }
                     }
-                    st: stopwatchCrack.isRunning
+//                    st: stopwatchCrack.isRunning
                 }
 
             }

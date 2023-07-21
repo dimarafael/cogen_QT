@@ -9,8 +9,12 @@ import Qt5Compat.GraphicalEffects
 Item {
     property string textColor: "#ffffff"
     property string buttonText: "BUTTON"
+    property string button2Text: "BUTTON"
     property string imageSource: ""
+    property string image2Source: ""
+
     property bool st: false
+    property bool st2: false
 
     signal clicked
 
@@ -30,7 +34,7 @@ Item {
         }
         Image {
             id: iconImage
-            source: imageSource
+            source: st2? image2Source:imageSource
             anchors.left: parent.left
             anchors.right: parent.right
             anchors.top: parent.top
@@ -48,7 +52,7 @@ Item {
             height: parent.height/3
             TextFit{
                 id: textButon
-                txt: buttonText
+                txt: st2? button2Text:buttonText
                 col: textColor
             }
             Glow{
