@@ -70,6 +70,7 @@ Window {
                     id: imageLogo
                     source: "img/logo.svg"
                     anchors.fill: parent
+                    anchors.horizontalCenter: parent.horizontalCenter
                     sourceSize.width: parent.width
                     fillMode: Image.PreserveAspectFit
                 }

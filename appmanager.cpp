@@ -22,6 +22,20 @@ AppManager::AppManager(QObject *parent) : QObject{parent}
     auto updateConnectedState = [&](bool connected){
         setIsModbusConnected(connected);
         qDebug() << "Connect state: " << connected;
+        if(!connected){
+            setTemperatureProduct(0);
+            setTemperatureSmoke(0);
+            setDP(0);
+            setButtonDrum(false);
+            setButtonMixer(false);
+            setDrumSP(0);
+            setFanSP(0);
+            setButtonCooler(false);
+            setButtonFire(false);
+            setAlarmState(false);
+            setTemperatureROR(0);
+            setGazPreset(0);
+        }
     };
     connect(mb, &modbus::updateConnectedState,updateConnectedState);
 
