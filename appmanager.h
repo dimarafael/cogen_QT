@@ -76,6 +76,7 @@ public slots:
 
     void onSetFireLevel(int lvl);
     void onSetDrumSpeed(float spd);
+    void onSetFanSpeed(float spd);
 
     void startTrendlog(QAbstractSeries *tSmokeSeries, QAbstractSeries *tProductSeries, QAbstractSeries *tRORSeries);
     void stopTrendlog();

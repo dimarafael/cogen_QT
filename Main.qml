@@ -464,11 +464,48 @@ Window {
                     anchors.top: parent.top
                     anchors.left: itemTopMenu5.right
                     anchors.bottom: parent.bottom
+                    Rectangle{
+                        anchors.fill: parent
+                        color:"dimgray"
+                        visible: mouseAreaTopMenu6.pressed
+                    }
                     TopMenuItem2Lines {
                         txtCol:  "#9333ea"
                         text1: Math.round(appmanager.fanSP)+"%"
                         text2: Math.round(appmanager.dP)+"Pa"
                         img: "img/fan.svg"
+                    }
+                    MouseArea{
+                        id: mouseAreaTopMenu6
+                        anchors.fill: parent
+                        onClicked: {
+                            popUpFan.visible = !popUpFan.visible
+                        }
+                    }
+                }
+                //PopUp fan speed
+                PopUpPlusMinus10{
+                    id: popUpFan
+                    visible: false
+                    width: itemRight.width/4
+                    height: itemTopMenu.height*2
+                    color: colorText
+                    radius: defMargin*2
+                    anchors.top: itemTopMenu6.bottom
+                    anchors.right: itemTopMenu6.right
+                    onMinusClicked: {
+                        if(appmanager.fanSP>minDrunSpeed) appmanager.onSetFanSpeed(appmanager.fanSP-1)
+                    }
+                    onPlusClicked: {
+                        if(appmanager.fanSP<maxDrunSpeed) appmanager.onSetFanSpeed(appmanager.fanSP+1)
+                    }
+                    onMinus10Clicked: {
+                        if(appmanager.fanSP>minDrunSpeed+10) appmanager.onSetFanSpeed(appmanager.fanSP-10)
+                        else appmanager.onSetFanSpeed(minDrunSpeed)
+                    }
+                    onPlus10Clicked: {
+                        if(appmanager.fanSP<maxDrunSpeed-10) appmanager.onSetFanSpeed(appmanager.fanSP+10)
+                        else appmanager.onSetFanSpeed(maxDrunSpeed)
                     }
                 }
             }

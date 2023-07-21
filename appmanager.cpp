@@ -76,6 +76,12 @@ void AppManager::onSetDrumSpeed(float spd)
     emit writeFloat(114,spd);
 }
 
+void AppManager::onSetFanSpeed(float spd)
+{
+    setFanSP(spd);
+    emit writeFloat(117,spd);
+}
+
 void AppManager::startTrendlog(QAbstractSeries *tSmokeSeries, QAbstractSeries *tProductSeries, QAbstractSeries *tRORSeries)
 {
     tSmokeTrendlog->startTrending(tSmokeSeries);
