@@ -1,4 +1,5 @@
 import QtQuick
+import Qt5Compat.GraphicalEffects
 
 Item {
     id: root
@@ -72,6 +73,16 @@ Item {
         onTriggered: {
             root.visible=false
         }
+    }
+
+    DropShadow {
+        anchors.fill: rectBackground
+        source: rectBackground
+        horizontalOffset: root.width/30
+        verticalOffset: root.width/30
+        radius: 8.0
+        samples: 17
+        color: "#aa000000"
     }
 
 }

@@ -384,6 +384,8 @@ Window {
                         anchors.fill: parent
                         onClicked: {
                             popUpFire.visible = !popUpFire.visible
+                            popUpDrum.visible = false
+                            popUpFan.visible = false
                         }
                     }
                 }
@@ -428,6 +430,8 @@ Window {
                         anchors.fill: parent
                         onClicked: {
                             popUpDrum.visible = !popUpDrum.visible
+                            popUpFire.visible = false
+                            popUpFan.visible = false
                         }
                     }
                 }
@@ -480,6 +484,8 @@ Window {
                         anchors.fill: parent
                         onClicked: {
                             popUpFan.visible = !popUpFan.visible
+                            popUpFire.visible = false
+                            popUpDrum.visible = false
                         }
                     }
                 }
@@ -566,6 +572,7 @@ Window {
                         }
 
                         SplineSeries {
+                            id: cahrtTempSmoke
                             name: "temperatureSmoke"
                             axisY: chartYAxis
                             axisX: chartXAxis
@@ -619,9 +626,17 @@ Window {
                     col: "red"
                 }
             }
-
-
         }
+        DropShadow {
+            anchors.fill: rectanglePopUpConnectionError
+            source: rectanglePopUpConnectionError
+            horizontalOffset: rectanglePopUpConnectionError.width/30
+            verticalOffset: rectanglePopUpConnectionError.width/30
+            radius: 8.0
+            samples: 17
+            color: "#aa000000"
+        }
+
     }
 
 

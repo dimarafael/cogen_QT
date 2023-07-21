@@ -5,6 +5,7 @@ import QtQuick.Layouts
 import QtQuick.Controls
 import Qt5Compat.GraphicalEffects
 
+
 Item {
     property string textColor: "#ffffff"
     property string buttonText: "BUTTON"
@@ -28,6 +29,7 @@ Item {
             color: mouseArea.pressed? "dimgray":'transparent'
         }
         Image {
+            id: iconImage
             source: imageSource
             anchors.left: parent.left
             anchors.right: parent.right
@@ -45,8 +47,17 @@ Item {
             anchors.bottomMargin: height/5
             height: parent.height/3
             TextFit{
+                id: textButon
                 txt: buttonText
-                col: st? "#0f0":textColor
+                col: textColor
+            }
+            Glow{
+                anchors.fill: textButon
+                source: textButon
+                radius: 18
+                samples: 37
+                color: "#aa00ff00"
+                visible: st
             }
         }
         MouseArea{
@@ -56,5 +67,16 @@ Item {
                 itemRoot.clicked()
             }
         }
+
+        Glow{
+            anchors.fill: iconImage
+            source: iconImage
+            radius: 18
+            samples: 37
+            color: "#aa00ff00"
+            spread: 0.5
+            visible: st
+        }
+
     }
 }
