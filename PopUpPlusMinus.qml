@@ -8,6 +8,10 @@ Item {
     signal minusClicked()
     signal plusClicked()
 
+    onVisibleChanged: {
+        if(root.visible) timer.restart()
+    }
+
 
     Rectangle{
         id: rectBackground
@@ -15,7 +19,7 @@ Item {
 
             Rectangle{
                 id: buttonMinus
-                color: "black"
+                color: mouseAreaMinus.pressed? "dimgray":"black"
                 height: parent.height - parent.radius*2
                 width: (parent.width-parent.radius*3)/2
                 radius: parent.radius
@@ -27,6 +31,7 @@ Item {
                     col:rectBackground.color
                 }
                 MouseArea{
+                    id: mouseAreaMinus
                     anchors.fill: parent
                     onClicked: {
                         root.minusClicked()
@@ -37,7 +42,7 @@ Item {
 
             Rectangle{
                 id: buttonPlus
-                color: "black"
+                color: mouseAreaPlus.pressed? "dimgray":"black"
                 height: parent.height - parent.radius*2
                 width: (parent.width-parent.radius*3)/2
                 radius: parent.radius
@@ -49,6 +54,7 @@ Item {
                     col:rectBackground.color
                 }
                 MouseArea{
+                    id: mouseAreaPlus
                     anchors.fill: parent
                     onClicked:{
                         root.plusClicked()

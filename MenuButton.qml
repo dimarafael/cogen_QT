@@ -25,7 +25,7 @@ Item {
             anchors.rightMargin: -4
             border.color: textColor
             border.width: 2
-            color: 'transparent'
+            color: mouseArea.pressed? "dimgray":'transparent'
         }
         Image {
             source: imageSource
@@ -50,6 +50,7 @@ Item {
             }
         }
         MouseArea{
+            id: mouseArea
             anchors.fill: parent
             onClicked: {
                 itemRoot.clicked()

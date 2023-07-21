@@ -269,6 +269,11 @@ Window {
                 anchors.right: parent.right
                 anchors.top: itemCoolerButtonToSettings.bottom
                 height: parent.height/10
+                Rectangle{
+                    anchors.fill: parent
+                    color: "dimgray"
+                    visible: mouseAreaSettinsButton.pressed
+                }
 
                 Image {
                     source: "img/gear.svg"
@@ -278,6 +283,7 @@ Window {
                     fillMode: Image.PreserveAspectFit
                 }
                 MouseArea{
+                    id: mouseAreaSettinsButton
                     anchors.fill: parent
                     onClicked: {
                         console.log("Button SETTINGS clicked")
@@ -360,12 +366,19 @@ Window {
                     anchors.top: parent.top
                     anchors.left: itemTopMenu3.right
                     anchors.bottom: parent.bottom
+                    Rectangle{
+                        anchors.fill: parent
+                        color:"dimgray"
+                        visible: mouseAreaTopMenu4.pressed
+                    }
+
                     TopMenuItem1Lines {
                         txtCol:  "#16a34a"
                         text1: appmanager.gazPreset
                         img: "img/fire.svg"
                     }
                     MouseArea{
+                        id: mouseAreaTopMenu4
                         anchors.fill: parent
                         onClicked: {
                             popUpFire.visible = !popUpFire.visible
@@ -464,12 +477,15 @@ Window {
                             min: 0
                             max: 300
                             labelsColor: colorText
+                            tickCount: 7
+                            minorTickCount: 4
                         }
                         ValueAxis {
                             id: chartYAxisROR
                             min: 0
-                            max: 20
-                            labelsColor: colorText
+                            max: 30
+                            labelsColor: colorROR
+                            tickCount: 7
                         }
 
                         SplineSeries {
@@ -496,15 +512,9 @@ Window {
                             width: 3
                         }
                     }
-
                 }
-
             }
-
         }
-
-
-
     }
 
 
