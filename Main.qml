@@ -20,6 +20,9 @@ Window {
     readonly property string colorProduct: "#e11d48"
     readonly property string colorROR: "#ca8a04"
 
+    readonly property real minDrunSpeed: 1
+    readonly property real maxDrunSpeed: 100
+
     property bool btnSt: false
     //Background
     Rectangle{
@@ -326,7 +329,6 @@ Window {
                     anchors.bottom: parent.bottom
                     TopMenuItem2Lines {
                         txtCol:  colorAir
-//                        text1: appmanager.temperatureSmoke.toFixed(0)+"°C"
                         text1: Math.round(appmanager.temperatureSmoke)+"°C"
                         text2: "AIR"
                         img: "img/air.svg"
@@ -410,13 +412,51 @@ Window {
                     anchors.top: parent.top
                     anchors.left: itemTopMenu4.right
                     anchors.bottom: parent.bottom
+                    Rectangle{
+                        anchors.fill: parent
+                        color:"dimgray"
+                        visible: mouseAreaTopMenu5.pressed
+                    }
                     TopMenuItem2Lines {
                         txtCol:  "#ea580c"
                         text1: Math.round(appmanager.drumSP)
                         text2: "rpm"
                         img: "img/drum.svg"
                     }
+                    MouseArea{
+                        id: mouseAreaTopMenu5
+                        anchors.fill: parent
+                        onClicked: {
+                            popUpDrum.visible = !popUpDrum.visible
+                        }
+                    }
                 }
+                //PopUp drum speed
+                PopUpPlusMinus10{
+                    id: popUpDrum
+                    visible: false
+                    width: itemRight.width/4
+                    height: itemTopMenu.height*2
+                    color: colorText
+                    radius: defMargin*2
+                    anchors.top: itemTopMenu5.bottom
+                    anchors.horizontalCenter: itemTopMenu5.horizontalCenter
+                    onMinusClicked: {
+                        if(appmanager.drumSP>minDrunSpeed) appmanager.onSetDrumSpeed(appmanager.drumSP-1)
+                    }
+                    onPlusClicked: {
+                        if(appmanager.drumSP<maxDrunSpeed) appmanager.onSetDrumSpeed(appmanager.drumSP+1)
+                    }
+                    onMinus10Clicked: {
+                        if(appmanager.drumSP>minDrunSpeed+10) appmanager.onSetDrumSpeed(appmanager.drumSP-10)
+                        else appmanager.onSetDrumSpeed(minDrunSpeed)
+                    }
+                    onPlus10Clicked: {
+                        if(appmanager.drumSP<maxDrunSpeed-10) appmanager.onSetDrumSpeed(appmanager.drumSP+10)
+                        else appmanager.onSetDrumSpeed(maxDrunSpeed)
+                    }
+                }
+
                 Item{
                     id: itemTopMenu6
                     height: parent.height

@@ -75,6 +75,7 @@ public slots:
     void onClickButtonCooler();
 
     void onSetFireLevel(int lvl);
+    void onSetDrumSpeed(float spd);
 
     void startTrendlog(QAbstractSeries *tSmokeSeries, QAbstractSeries *tProductSeries, QAbstractSeries *tRORSeries);
     void stopTrendlog();
@@ -82,6 +83,7 @@ public slots:
 signals:
     void isModbusConnectedChanged();
     void writeRegister(int addr, qint16 value);
+    void writeFloat(int addr, float value);
 
     void buttonDrumChanged();
 

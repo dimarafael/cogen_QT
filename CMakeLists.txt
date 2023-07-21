@@ -26,6 +26,7 @@ qt_add_qml_module(appcogen
         TopMenuItem1Lines.qml
         Stopwatch.qml
         PopUpPlusMinus.qml
+        PopUpPlusMinus10.qml
     RESOURCES
         img/logo.svg
         img/Coffee_Bean.svg

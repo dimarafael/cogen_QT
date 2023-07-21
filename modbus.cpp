@@ -68,9 +68,35 @@ float modbus::toFloat(quint16 low, quint16 high)
     return f;
 }
 
+quint16 modbus::floatToLowWord(float value)
+{
+    quint16 res;
+    memcpy(&res ,&value ,2);
+    return res;
+}
+
+quint16 modbus::floatToHighWord(float value)
+{
+    quint16 res;
+    quint32 tmp32;
+    memcpy(&tmp32, &value, sizeof tmp32);
+    tmp32 = tmp32>>16;
+    memcpy(&res ,&tmp32, 2);
+    return res;
+}
+
 void modbus::writeHoldingRegister(int addr, qint16 value){
     QVector<quint16> vDataWrite(1);
     vDataWrite[0] = value;
+    QModbusDataUnit duForWrite(QModbusDataUnit::HoldingRegisters, addr, vDataWrite);
+    mc->sendWriteRequest( duForWrite,1);
+}
+
+void modbus::writeFloatHolding(int addr, float value)
+{
+    QVector<quint16> vDataWrite(2);
+    vDataWrite[0] = floatToLowWord(value);
+    vDataWrite[1] = floatToHighWord(value);
     QModbusDataUnit duForWrite(QModbusDataUnit::HoldingRegisters, addr, vDataWrite);
     mc->sendWriteRequest( duForWrite,1);
 }

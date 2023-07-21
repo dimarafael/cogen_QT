@@ -26,6 +26,7 @@ AppManager::AppManager(QObject *parent) : QObject{parent}
     connect(mb, &modbus::updateConnectedState,updateConnectedState);
 
     connect(this, &AppManager::writeRegister, mb, &modbus::writeHoldingRegister);
+    connect(this, &AppManager::writeFloat, mb, &modbus::writeFloatHolding);
 }
 
 AppManager::~AppManager()
@@ -67,6 +68,12 @@ void AppManager::onSetFireLevel(int lvl)
 {
     setGazPreset(lvl);
     emit writeRegister(168,lvl);
+}
+
+void AppManager::onSetDrumSpeed(float spd)
+{
+    setDrumSP(spd);
+    emit writeFloat(114,spd);
 }
 
 void AppManager::startTrendlog(QAbstractSeries *tSmokeSeries, QAbstractSeries *tProductSeries, QAbstractSeries *tRORSeries)

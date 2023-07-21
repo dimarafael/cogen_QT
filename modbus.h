@@ -13,9 +13,12 @@ public:
     modbus();
     ~modbus();
     static float toFloat(quint16 low, quint16 high);
+    static quint16 floatToLowWord(float value);
+    static quint16 floatToHighWord(float value);
 
 public slots:
     void writeHoldingRegister(int addr, qint16 value);
+    void writeFloatHolding(int addr, float value);
     void pollModbus();
 
 signals:
