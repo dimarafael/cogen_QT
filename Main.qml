@@ -394,6 +394,7 @@ Window {
                         txtCol:  colorROR
                         text1: appmanager.temperatureROR.toFixed(1)+"°C"
                         imgText: "RoR"
+//                        halfDivided: true
                     }
                 }
                 Item{
@@ -403,6 +404,7 @@ Window {
                     anchors.top: parent.top
                     anchors.left: itemTopMenu3.right
                     anchors.bottom: parent.bottom
+
                     Rectangle{
                         anchors.fill: parent
                         color:"dimgray"
@@ -413,6 +415,8 @@ Window {
                         txtCol:  "#16a34a"
                         text1: appmanager.gazPreset
                         img: "img/fire.svg"
+                        imgVerticalMargins: parent.height/5
+//                        halfDivided: true
                     }
                     MouseArea{
                         id: mouseAreaTopMenu4

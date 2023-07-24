@@ -10,6 +10,8 @@ Item{
     property string txtCol: "red"
     property string img: ""
     property string imgText: ""
+    property bool halfDivided: false
+    property int imgVerticalMargins: 0
 
     id: itemTopMenu1
     anchors.fill: parent
@@ -18,42 +20,47 @@ Item{
     Item{
         id: itemTopMenu1Img
         height: parent.height
-        width: parent.width/3-defMargin
+        width: halfDivided? (parent.width/2-defMargin):(parent.width/3-defMargin)
         anchors.top: parent.top
         anchors.left: parent.left
         anchors.bottom: parent.bottom
         anchors.leftMargin: defMargin
+        anchors.topMargin: imgVerticalMargins
+        anchors.bottomMargin: imgVerticalMargins
         Image{
             source: img
             anchors.fill: parent
             fillMode: Image.PreserveAspectFit
         }
-        TextFit{
-            txt: imgText
-            col: "#d4d4d4"
-//            font.bold: true
+        Item{
+            height: parent.height
+            width: parent.width*2
+            y: -parent.height/20
+
+
+            TextFit{
+                txt: imgText
+                col: "#d4d4d4"
+                transform: Scale{
+                    xScale: 0.5
+                }
+            }
         }
     }
     Item{
         id: itemTopMenu1Text
         height: parent.height
-        width: (parent.width/3)*2 - defMargin
+        width: halfDivided? (parent.width/2-defMargin):( (parent.width/3)*2 - defMargin )
         anchors.top: parent.top
         anchors.right: parent.right
         anchors.bottom: parent.bottom
         anchors.leftMargin: defMargin
+
         Item{
-            id: itemTopMenu1Textline1
-            height: parent.height/3
-            anchors.top: parent.top
-            anchors.left: parent.lef
-            anchors.right: parent.right
-        }
-        Item{
-            id: itemTopMenu1Textline2
+            id: itemTopMenu1Textline
             height: parent.height/3
             width: parent.width
-            anchors.top: itemTopMenu1Textline1.bottom
+            anchors.verticalCenter: parent.verticalCenter
             anchors.left: parent.lef
             anchors.right: parent.right
             TextFit{
