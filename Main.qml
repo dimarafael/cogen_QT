@@ -24,10 +24,40 @@ Window {
     readonly property real maxDrunSpeed: 100
 
     property bool btnSt: false
+
+    property int chartStartHours: 0
+    Component.onCompleted:
+        if(Qt.platform.os === "windows"){
+            chartStartHours = 1
+        }
+
     //Background
     Rectangle{
         anchors.fill: parent
         color: "black"
+    }
+    //Background RED for alarm state display
+    Rectangle{
+        id: backgroundAlarm
+        anchors.fill: parent
+        color: "red"
+        opacity: 0
+        SequentialAnimation{
+            running: appmanager.alarmState
+            loops: Animation.Infinite
+            OpacityAnimator{
+                target: backgroundAlarm
+                from: 0
+                to: 1
+                duration: 1000
+            }
+            OpacityAnimator{
+                target: backgroundAlarm
+                from: 1
+                to: 0
+                duration: 1000
+            }
+        }
     }
 
     Item{
@@ -70,8 +100,8 @@ Window {
                     id: imageLogo
                     source: "img/logo.svg"
                     anchors.fill: parent
-                    anchors.horizontalCenter: parent.horizontalCenter
-                    sourceSize.width: parent.width
+                    sourceSize.width: width
+                    sourceSize.height: height
                     fillMode: Image.PreserveAspectFit
                 }
             }
@@ -92,6 +122,7 @@ Window {
                                                  chartView.series("temperatureProduct"),
                                                  chartView.series("temperatureROR"))
                         stopwatchCrack.resetTimer()
+                        chartXAxis.max = new Date(1970, 0, 1, chartStartHours, 1, 0, 0) // 01:00
                     }
                     onStoped: {
                         appmanager.stopTrendlog()
@@ -99,7 +130,7 @@ Window {
                     }
                     onTrig59s: {
                         var x = Math.round(chartView.series("temperatureSmoke").count / 60) + 1
-                        chartXAxis.max = new Date(1970, 0, 1, 1, x, 0, 0)
+                        chartXAxis.max = new Date(1970, 0, 1, chartStartHours, x, 0, 0)
                     }
                 }
             }
@@ -293,6 +324,7 @@ Window {
                     anchors.fill: parent
                     onClicked: {
                         console.log("Button SETTINGS clicked")
+
                     }
                 }
 
@@ -471,10 +503,18 @@ Window {
                     anchors.top: parent.top
                     anchors.left: itemTopMenu5.right
                     anchors.bottom: parent.bottom
-                    Rectangle{
+                    Item{
                         anchors.fill: parent
-                        color:"dimgray"
                         visible: mouseAreaTopMenu6.pressed
+                        clip: true
+                        Rectangle{
+                            anchors.right: parent.right
+                            anchors.top: parent.top
+                            width: parent.width + defMargin*2
+                            height: parent.height
+                            color:"dimgray"
+                            radius: defMargin*2
+                        }
                     }
                     TopMenuItem2Lines {
                         txtCol:  "#9333ea"
@@ -548,8 +588,8 @@ Window {
 
                         DateTimeAxis {
                            id: chartXAxis
-                           min: new Date(1970, 0, 1, 1, 0, 0, 0) // 00:00
-                           max: new Date(1970, 0, 1, 1, 1, 0, 0) // 01:00
+                           min: new Date(1970, 0, 1, chartStartHours, 0, 0, 0) // 00:00
+                           max: new Date(1970, 0, 1, chartStartHours, 1, 0, 0) // 01:00
                            format: "mm:ss"
                            tickCount: 7
                            labelsColor: colorText
