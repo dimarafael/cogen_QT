@@ -31,6 +31,115 @@ Window {
             chartStartHours = 1
         }
 
+    // Fire PopUp component creation
+    property var popUpFire: null
+    function showPopUpFire(){
+        destroyPopUpDrumSpeed()
+        destroyPopUpFanSpeed()
+        if(popUpFire == null){
+            popUpFire = Qt.createComponent("PopUpPlusMinus.qml").createObject(itemTopMenu4, {"x":0, "y":0})
+            if(popUpFire != null){
+                popUpFire.anchors.top = itemTopMenu4.bottom
+                popUpFire.anchors.horizontalCenter = itemTopMenu4.horizontalCenter
+                popUpFire.color = colorText
+                popUpFire.radius = defMargin*2
+                popUpFire.width = itemRight.width/4
+                popUpFire.height = itemTopMenu.height
+                popUpFire.minusClicked.connect(()=>{
+                    if(appmanager.gazPreset>1) appmanager.onSetFireLevel(appmanager.gazPreset-1)
+                                               })
+                popUpFire.plusClicked.connect(()=>{
+                    if(appmanager.gazPreset<9) appmanager.onSetFireLevel(appmanager.gazPreset+1)
+                                               })
+                popUpFire.close.connect(destroyPopUpFire)
+            }
+        }
+    }
+    function destroyPopUpFire(){
+        if(popUpFire !== null){
+            popUpFire.destroy()
+            popUpFire = null
+        }
+    }
+
+    // Drum Speed PopUp component creation
+    property var popUpDrumSpeed: null
+    function showPopUpDrumSpeed(){
+        destroyPopUpFire()
+        destroyPopUpFanSpeed()
+        if(popUpDrumSpeed == null){
+            popUpDrumSpeed = Qt.createComponent("PopUpPlusMinus10.qml").createObject(itemTopMenu5, {"x":0, "y":0})
+            if(popUpDrumSpeed != null){
+                popUpDrumSpeed.anchors.top = itemTopMenu5.bottom
+                popUpDrumSpeed.anchors.horizontalCenter = itemTopMenu5.horizontalCenter
+                popUpDrumSpeed.color = colorText
+                popUpDrumSpeed.radius = defMargin*2
+                popUpDrumSpeed.width = itemRight.width/4
+                popUpDrumSpeed.height = itemTopMenu.height*2
+                popUpDrumSpeed.minusClicked.connect(()=>{
+                    if(appmanager.drumSP>minDrunSpeed) appmanager.onSetDrumSpeed(appmanager.drumSP-1)
+                                               })
+                popUpDrumSpeed.plusClicked.connect(()=>{
+                    if(appmanager.drumSP<maxDrunSpeed) appmanager.onSetDrumSpeed(appmanager.drumSP+1)
+                                               })
+                popUpDrumSpeed.minus10Clicked.connect(()=>{
+                    if(appmanager.drumSP>minDrunSpeed+10) appmanager.onSetDrumSpeed(appmanager.drumSP-10)
+                    else appmanager.onSetDrumSpeed(minDrunSpeed)
+                                               })
+                popUpDrumSpeed.plus10Clicked.connect(()=>{
+                    if(appmanager.drumSP<maxDrunSpeed-10) appmanager.onSetDrumSpeed(appmanager.drumSP+10)
+                    else appmanager.onSetDrumSpeed(maxDrunSpeed)
+                                               })
+                popUpDrumSpeed.close.connect(destroyPopUpDrumSpeed)
+            }
+        }
+    }
+    function destroyPopUpDrumSpeed(){
+        if(popUpDrumSpeed !== null){
+            popUpDrumSpeed.destroy()
+            popUpDrumSpeed = null
+        }
+    }
+
+    // Fan Speed PopUp component creation
+    property var popUpFanSpeed: null
+    function showPopUpFanSpeed(){
+        destroyPopUpFire()
+        destroyPopUpDrumSpeed()
+        if(popUpFanSpeed == null){
+            popUpFanSpeed = Qt.createComponent("PopUpPlusMinus10.qml").createObject(itemTopMenu6, {"x":0, "y":0})
+            if(popUpFanSpeed != null){
+                popUpFanSpeed.anchors.top = itemTopMenu6.bottom
+                popUpFanSpeed.anchors.right = itemTopMenu6.right
+                popUpFanSpeed.color = colorText
+                popUpFanSpeed.radius = defMargin*2
+                popUpFanSpeed.width = itemRight.width/4
+                popUpFanSpeed.height = itemTopMenu.height*2
+                popUpFanSpeed.minusClicked.connect(()=>{
+                    if(appmanager.fanSP>minDrunSpeed) appmanager.onSetFanSpeed(appmanager.fanSP-1)
+                                               })
+                popUpFanSpeed.plusClicked.connect(()=>{
+                    if(appmanager.fanSP<maxDrunSpeed) appmanager.onSetFanSpeed(appmanager.fanSP+1)
+                                               })
+                popUpFanSpeed.minus10Clicked.connect(()=>{
+                    if(appmanager.fanSP>minDrunSpeed+10) appmanager.onSetFanSpeed(appmanager.fanSP-10)
+                    else appmanager.onSetFanSpeed(minDrunSpeed)
+                                               })
+                popUpFanSpeed.plus10Clicked.connect(()=>{
+                    if(appmanager.fanSP<maxDrunSpeed-10) appmanager.onSetFanSpeed(appmanager.fanSP+10)
+                    else appmanager.onSetFanSpeed(maxDrunSpeed)
+                                               })
+                popUpFanSpeed.close.connect(destroyPopUpFanSpeed)
+            }
+        }
+    }
+    function destroyPopUpFanSpeed(){
+        if(popUpFanSpeed !== null){
+            popUpFanSpeed.destroy()
+            popUpFanSpeed = null
+        }
+    }
+
     //Background
     Rectangle{
         anchors.fill: parent
@@ -422,28 +531,11 @@ Window {
                         id: mouseAreaTopMenu4
                         anchors.fill: parent
                         onClicked: {
-                            popUpFire.visible = !popUpFire.visible
-                            popUpDrum.visible = false
-                            popUpFan.visible = false
+                            if(popUpFire !== null) window.destroyPopUpFire()
+                            else window.showPopUpFire()
                         }
                     }
-                }
-                //PopUp fire level
-                PopUpPlusMinus{
-                    id: popUpFire
-                    visible: false
-                    width: itemRight.width/4
-                    height: itemTopMenu.height
-                    color: colorText
-                    radius: defMargin*2
-                    anchors.top: itemTopMenu4.bottom
-                    anchors.horizontalCenter: itemTopMenu4.horizontalCenter
-                    onMinusClicked: {
-                        if(appmanager.gazPreset>1) appmanager.onSetFireLevel(appmanager.gazPreset-1)
-                    }
-                    onPlusClicked: {
-                        if(appmanager.gazPreset<9) appmanager.onSetFireLevel(appmanager.gazPreset+1)
-                    }
+
                 }
 
                 Item{
@@ -468,35 +560,9 @@ Window {
                         id: mouseAreaTopMenu5
                         anchors.fill: parent
                         onClicked: {
-                            popUpDrum.visible = !popUpDrum.visible
-                            popUpFire.visible = false
-                            popUpFan.visible = false
+                            if(popUpDrumSpeed !== null) window.destroyPopUpDrumSpeed()
+                            else window.showPopUpDrumSpeed()
                         }
-                    }
-                }
-                //PopUp drum speed
-                PopUpPlusMinus10{
-                    id: popUpDrum
-                    visible: false
-                    width: itemRight.width/4
-                    height: itemTopMenu.height*2
-                    color: colorText
-                    radius: defMargin*2
-                    anchors.top: itemTopMenu5.bottom
-                    anchors.horizontalCenter: itemTopMenu5.horizontalCenter
-                    onMinusClicked: {
-                        if(appmanager.drumSP>minDrunSpeed) appmanager.onSetDrumSpeed(appmanager.drumSP-1)
-                    }
-                    onPlusClicked: {
-                        if(appmanager.drumSP<maxDrunSpeed) appmanager.onSetDrumSpeed(appmanager.drumSP+1)
-                    }
-                    onMinus10Clicked: {
-                        if(appmanager.drumSP>minDrunSpeed+10) appmanager.onSetDrumSpeed(appmanager.drumSP-10)
-                        else appmanager.onSetDrumSpeed(minDrunSpeed)
-                    }
-                    onPlus10Clicked: {
-                        if(appmanager.drumSP<maxDrunSpeed-10) appmanager.onSetDrumSpeed(appmanager.drumSP+10)
-                        else appmanager.onSetDrumSpeed(maxDrunSpeed)
                     }
                 }
 
@@ -530,37 +596,36 @@ Window {
                         id: mouseAreaTopMenu6
                         anchors.fill: parent
                         onClicked: {
-                            popUpFan.visible = !popUpFan.visible
-                            popUpFire.visible = false
-                            popUpDrum.visible = false
+                            if(popUpFanSpeed !== null) window.destroyPopUpFanSpeed()
+                            else window.showPopUpFanSpeed()
                         }
                     }
                 }
                 //PopUp fan speed
-                PopUpPlusMinus10{
-                    id: popUpFan
-                    visible: false
-                    width: itemRight.width/4
-                    height: itemTopMenu.height*2
-                    color: colorText
-                    radius: defMargin*2
-                    anchors.top: itemTopMenu6.bottom
-                    anchors.right: itemTopMenu6.right
-                    onMinusClicked: {
-                        if(appmanager.fanSP>minDrunSpeed) appmanager.onSetFanSpeed(appmanager.fanSP-1)
-                    }
-                    onPlusClicked: {
-                        if(appmanager.fanSP<maxDrunSpeed) appmanager.onSetFanSpeed(appmanager.fanSP+1)
-                    }
-                    onMinus10Clicked: {
-                        if(appmanager.fanSP>minDrunSpeed+10) appmanager.onSetFanSpeed(appmanager.fanSP-10)
-                        else appmanager.onSetFanSpeed(minDrunSpeed)
-                    }
-                    onPlus10Clicked: {
-                        if(appmanager.fanSP<maxDrunSpeed-10) appmanager.onSetFanSpeed(appmanager.fanSP+10)
-                        else appmanager.onSetFanSpeed(maxDrunSpeed)
-                    }
-                }
+//                PopUpPlusMinus10{
+//                    id: popUpFan
+//                    visible: false
+//                    width: itemRight.width/4
+//                    height: itemTopMenu.height*2
+//                    color: colorText
+//                    radius: defMargin*2
+//                    anchors.top: itemTopMenu6.bottom
+//                    anchors.right: itemTopMenu6.right
+//                    onMinusClicked: {
+//                        if(appmanager.fanSP>minDrunSpeed) appmanager.onSetFanSpeed(appmanager.fanSP-1)
+//                    }
+//                    onPlusClicked: {
+//                        if(appmanager.fanSP<maxDrunSpeed) appmanager.onSetFanSpeed(appmanager.fanSP+1)
+//                    }
+//                    onMinus10Clicked: {
+//                        if(appmanager.fanSP>minDrunSpeed+10) appmanager.onSetFanSpeed(appmanager.fanSP-10)
+//                        else appmanager.onSetFanSpeed(minDrunSpeed)
+//                    }
+//                    onPlus10Clicked: {
+//                        if(appmanager.fanSP<maxDrunSpeed-10) appmanager.onSetFanSpeed(appmanager.fanSP+10)
+//                        else appmanager.onSetFanSpeed(maxDrunSpeed)
+//                    }
+//                }
             }
 
         }

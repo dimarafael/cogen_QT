@@ -10,9 +10,10 @@ Item {
     signal plusClicked()
     signal minus10Clicked()
     signal plus10Clicked()
+    signal close()
 
-    onVisibleChanged: {
-        if(root.visible) timer.restart()
+    Component.onCompleted: {
+        timer.restart()
     }
 
 
@@ -143,7 +144,7 @@ Item {
         interval: 3000
         repeat: false
         onTriggered: {
-            root.visible=false
+            root.close()
         }
     }
 

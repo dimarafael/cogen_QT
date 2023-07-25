@@ -8,11 +8,11 @@ Item {
 
     signal minusClicked()
     signal plusClicked()
+    signal close()
 
-    onVisibleChanged: {
-        if(root.visible) timer.restart()
+    Component.onCompleted: {
+        timer.restart()
     }
-
 
     Rectangle{
         id: rectBackground
@@ -71,7 +71,7 @@ Item {
         interval: 3000
         repeat: false
         onTriggered: {
-            root.visible=false
+            root.close()
         }
     }
 
