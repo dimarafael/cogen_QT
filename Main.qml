@@ -140,6 +140,21 @@ Window {
         }
     }
 
+    // Settings Page
+    property var pageSettings: null
+    function showPageSettings(){
+        if(pageSettings == null){
+            pageSettings = Qt.createComponent("PageSettings.qml").createObject(rectangleMainContent)
+        }
+
+    }
+    function destroyPageSettings(){
+        if(pageSettings !== null){
+            pageSettings.destroy()
+            pageSettings = null
+        }
+    }
+
     //Background
     Rectangle{
         anchors.fill: parent
@@ -433,7 +448,8 @@ Window {
                     anchors.fill: parent
                     onClicked: {
                         console.log("Button SETTINGS clicked")
-
+                        if(pageSettings == null)    showPageSettings()
+                        else    destroyPageSettings()
                     }
                 }
 
@@ -601,31 +617,7 @@ Window {
                         }
                     }
                 }
-                //PopUp fan speed
-//                PopUpPlusMinus10{
-//                    id: popUpFan
-//                    visible: false
-//                    width: itemRight.width/4
-//                    height: itemTopMenu.height*2
-//                    color: colorText
-//                    radius: defMargin*2
-//                    anchors.top: itemTopMenu6.bottom
-//                    anchors.right: itemTopMenu6.right
-//                    onMinusClicked: {
-//                        if(appmanager.fanSP>minDrunSpeed) appmanager.onSetFanSpeed(appmanager.fanSP-1)
-//                    }
-//                    onPlusClicked: {
-//                        if(appmanager.fanSP<maxDrunSpeed) appmanager.onSetFanSpeed(appmanager.fanSP+1)
-//                    }
-//                    onMinus10Clicked: {
-//                        if(appmanager.fanSP>minDrunSpeed+10) appmanager.onSetFanSpeed(appmanager.fanSP-10)
-//                        else appmanager.onSetFanSpeed(minDrunSpeed)
-//                    }
-//                    onPlus10Clicked: {
-//                        if(appmanager.fanSP<maxDrunSpeed-10) appmanager.onSetFanSpeed(appmanager.fanSP+10)
-//                        else appmanager.onSetFanSpeed(maxDrunSpeed)
-//                    }
-//                }
+
             }
 
         }
@@ -646,7 +638,7 @@ Window {
 
                 Item {
                     anchors.fill: parent
-
+                    z:2
 
                     ChartView {
                         id: chartView
@@ -710,6 +702,11 @@ Window {
                         }
                     }
                 }
+
+//                PageSettings {
+//                    id: itemPageSettings
+//                }
+
             }
         }
     }
