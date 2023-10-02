@@ -47,6 +47,8 @@ AppManager::~AppManager()
 {
 
     delete tSmokeTrendlog;
+    delete tProductTrendlog;
+    delete tRORTrendlog;
 }
 
 void AppManager::onClickButtonDrum()

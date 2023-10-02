@@ -231,16 +231,16 @@ Window {
                                                  chartView.series("temperatureProduct"),
                                                  chartView.series("temperatureROR"))
                         stopwatchCrack.resetTimer()
-                        chartXAxis.max = new Date(1970, 0, 1, chartStartHours, 1, 0, 0) // 01:00
+//                        chartXAxis.max = new Date(1970, 0, 1, chartStartHours, 1, 0, 0) // 01:00
                     }
                     onStoped: {
                         appmanager.stopTrendlog()
                         stopwatchCrack.stopTimer()
                     }
-                    onTrig59s: {
-                        var x = Math.round(chartView.series("temperatureSmoke").count / 60) + 1
-                        chartXAxis.max = new Date(1970, 0, 1, chartStartHours, x, 0, 0)
-                    }
+//                    onTrig59s: {
+//                        var x = Math.round(chartView.series("temperatureSmoke").count / 60) + 1
+//                        chartXAxis.max = new Date(1970, 0, 1, chartStartHours, x, 0, 0)
+//                    }
                 }
             }
 
@@ -658,7 +658,8 @@ Window {
                         DateTimeAxis {
                            id: chartXAxis
                            min: new Date(1970, 0, 1, chartStartHours, 0, 0, 0) // 00:00
-                           max: new Date(1970, 0, 1, chartStartHours, 1, 0, 0) // 01:00
+//                           max: new Date(1970, 0, 1, chartStartHours, 1, 0, 0) // 01:00
+                           max: new Date(1970, 0, 1, chartStartHours, 20, 0, 0) // 01:00
                            format: "mm:ss"
                            tickCount: 7
                            labelsColor: colorText

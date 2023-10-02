@@ -50,7 +50,7 @@ Item {
         triggeredOnStart: true
         onTriggered: {
             textTime.text = Qt.formatTime(new Date(new Date() - startDate),"mm:ss")
-            if(Qt.formatTime(new Date(new Date() - startDate),"ss") === "59") root.trig59s()
+//            if(Qt.formatTime(new Date(new Date() - startDate),"ss") === "59") root.trig59s()
         }
     }
 }
