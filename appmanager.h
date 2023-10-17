@@ -23,7 +23,7 @@ class AppManager : public QObject
     Q_PROPERTY(float fanSP READ fanSP WRITE setFanSP NOTIFY fanSPChanged)
     Q_PROPERTY(bool alarmState READ alarmState WRITE setAlarmState NOTIFY alarmStateChanged)
     Q_PROPERTY(int gazPreset READ gazPreset WRITE setGazPreset NOTIFY gazPresetChanged)
-
+    Q_PROPERTY(QList<int> almIntList READ almIntList WRITE setAlmIntList NOTIFY almIntListChanged)
 
 public:
     explicit AppManager(QObject *parent = nullptr);
@@ -68,6 +68,9 @@ public:
     int gazPreset() const;
     void setGazPreset(int newGazPreset);
 
+    QList<int> almIntList() const;
+    void setAlmIntList(const QList<int> &newAlmIntList);
+
 public slots:
     void onClickButtonDrum();
     void onClickButtonFire();
@@ -110,6 +113,8 @@ signals:
 
     void gazPresetChanged();
 
+    void almIntListChanged();
+
 private:
     modbus *mb;
     Trendlog *tSmokeTrendlog;
@@ -129,6 +134,7 @@ private:
     float m_fanSP;
     bool m_alarmState;
     int m_gazPreset;
+    QList<int> m_almIntList;
 };
 
 #endif // APPMANAGER_H

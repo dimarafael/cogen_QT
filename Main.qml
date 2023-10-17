@@ -146,7 +146,6 @@ Window {
         if(pageSettings == null){
             pageSettings = Qt.createComponent("PageSettings.qml").createObject(rectangleMainContent)
         }
-
     }
     function destroyPageSettings(){
         if(pageSettings !== null){
@@ -702,10 +701,6 @@ Window {
                         }
                     }
                 }
-
-//                PageSettings {
-//                    id: itemPageSettings
-//                }
 
             }
         }

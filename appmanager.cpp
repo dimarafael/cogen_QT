@@ -41,6 +41,7 @@ AppManager::AppManager(QObject *parent) : QObject{parent}
 
     connect(this, &AppManager::writeRegister, mb, &modbus::writeHoldingRegister);
     connect(this, &AppManager::writeFloat, mb, &modbus::writeFloatHolding);
+
 }
 
 AppManager::~AppManager()
@@ -137,6 +138,13 @@ void AppManager::parseModbusResponse(QVector<quint16> data)
     tRORTrendlog->setValue(temperatureROR());
 
     setGazPreset(data[69]);
+// experiment
+//    m_alarms.append(QString::number(temperatureSmoke()));
+//    emit alarmsChanged();
+
+//    m_almIntList.append(std::round(temperatureSmoke()));
+    m_almIntList.append(gazPreset());
+    emit almIntListChanged();
 }
 
 bool AppManager::isModbusConnected() const
@@ -306,4 +314,17 @@ void AppManager::setGazPreset(int newGazPreset)
         return;
     m_gazPreset = newGazPreset;
     emit gazPresetChanged();
+}
+
+QList<int> AppManager::almIntList() const
+{
+    return m_almIntList;
+}
+
+void AppManager::setAlmIntList(const QList<int> &newAlmIntList)
+{
+    if (m_almIntList == newAlmIntList)
+        return;
+    m_almIntList = newAlmIntList;
+    emit almIntListChanged();
 }

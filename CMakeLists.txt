@@ -28,6 +28,7 @@ qt_add_qml_module(appcogen
         PopUpPlusMinus.qml
         PopUpPlusMinus10.qml
         PageSettings.qml
+        AlarmList.qml
     RESOURCES
         img/logo.svg
         img/Coffee_Bean.svg
