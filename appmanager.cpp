@@ -12,6 +12,7 @@ AppManager::AppManager(QObject *parent) : QObject{parent}
     tSmokeTrendlog = new Trendlog(this);
     tProductTrendlog = new Trendlog(this);
     tRORTrendlog = new Trendlog(this);
+    alarmList = new AlarmList(this);
 
     connect(thread, &QThread::started, mb, &modbus::pollModbus);
     mb->moveToThread(thread);
@@ -55,9 +56,9 @@ AppManager::~AppManager()
 void AppManager::onClickButtonDrum()
 {
     setButtonDrum(!buttonDrum());
-    qint16 value = buttonDrum()?1:0;
-    emit writeRegister(112,value);
-
+//    qint16 value = buttonDrum()?1:0;
+//    emit writeRegister(112,value);
+    emit writeRegister(112,buttonDrum()?1:0);
 }
 
 void AppManager::onClickButtonFire()
@@ -138,13 +139,17 @@ void AppManager::parseModbusResponse(QVector<quint16> data)
     tRORTrendlog->setValue(temperatureROR());
 
     setGazPreset(data[69]);
-// experiment
-//    m_alarms.append(QString::number(temperatureSmoke()));
-//    emit alarmsChanged();
 
-//    m_almIntList.append(std::round(temperatureSmoke()));
-    m_almIntList.append(gazPreset());
-    emit almIntListChanged();
+// Alarm list
+    QVector<quint16> *tmpAlmV;
+    tmpAlmV = new QVector<quint16>();
+    tmpAlmV->append(data[0]);
+    tmpAlmV->append(data[1]);
+//    qInfo()<<*tmpAlmV;
+    if(alarmList->checkAlarms(tmpAlmV, &m_almIntList)) {
+        emit almIntListChanged();
+        qInfo() << almIntList();
+    }
 }
 
 bool AppManager::isModbusConnected() const

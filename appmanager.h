@@ -4,6 +4,7 @@
 #include <QObject>
 #include "modbus.h"
 #include "trendlog.h"
+#include "alarmlist.h"
 
 #include <QtCharts/QAbstractSeries>
 
@@ -120,6 +121,7 @@ private:
     Trendlog *tSmokeTrendlog;
     Trendlog *tProductTrendlog;
     Trendlog *tRORTrendlog;
+    AlarmList *alarmList;
     void parseModbusResponse(QVector<quint16> data);
     bool m_isModbusConnected;
     bool m_buttonDrum;

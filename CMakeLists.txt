@@ -13,6 +13,7 @@ qt_add_executable(appcogen
     appmanager.h appmanager.cpp
     modbus.h modbus.cpp
     trendlog.h trendlog.cpp
+    alarmlist.h alarmlist.cpp
 )
 
 qt_add_qml_module(appcogen

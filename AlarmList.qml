@@ -21,14 +21,23 @@ Item{
         "Message 11"
     ]
 
+    function fillAlarmList(){
+        almListModel.clear()
+        appmanager.almIntList.forEach((almItem)=>{
+            if(almItem > alarmsMessages.length) almListModel.append({"val":"Alarm "+almItem})
+            almListModel.append({"val":alarmsMessages[almItem]})
+        })
+    }
+
     Connections{
         target: appmanager
         function onAlmIntListChanged(){
-            almListModel.clear()
-            appmanager.almIntList.forEach((almItem)=>{
-                almListModel.append({"val":alarmsMessages[almItem]})
-            })
+            fillAlarmList()
         }
+    }
+
+    Component.onCompleted: {
+        fillAlarmList()
     }
 
     ListModel{

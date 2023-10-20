@@ -11,7 +11,7 @@ Window {
     width: 640
     height: 480
     visible: true
-    title: qsTr("Cogen")
+    title: "Cogen"
 
     readonly property int defMargin: window.width/200
     readonly property string colorMenuBg: "#404040"
