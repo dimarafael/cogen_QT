@@ -2,6 +2,7 @@ import QtQuick
 import QtQuick.Layouts
 import QtQuick.Controls
 import Qt5Compat.GraphicalEffects
+import com.dna.AlarmListModel
 
 
 Item{
@@ -21,38 +22,24 @@ Item{
         "Message 11"
     ]
 
-    function fillAlarmList(){
-        almListModel.clear()
-        appmanager.almIntList.forEach((almItem)=>{
-            if(almItem > alarmsMessages.length) almListModel.append({"val":"Alarm "+almItem})
-            almListModel.append({"val":alarmsMessages[almItem]})
-        })
-    }
-
-    Connections{
-        target: appmanager
-        function onAlmIntListChanged(){
-            fillAlarmList()
-        }
-    }
-
-    Component.onCompleted: {
-        fillAlarmList()
-    }
-
-    ListModel{
-        id: almListModel
+    function getAlarmText(almNumber){
+        if (almNumber < alarmsMessages.length) return alarmsMessages[almNumber]
+        else return "Alarm" + almNumber
     }
 
     ListView{
-        width: pageSettingsRect.width
-        height: pageSettingsRect.height/4
+//        width: parent.width
+//        height: parent.height/4
+        anchors.fill: parent
         ScrollBar.vertical: ScrollBar { }
 
-        model: almListModel
+//        model: almListModel
+        model: AlarmListModel
         delegate:   Text{
+            id: delegate
+            required property int alarmNumber
             color: "white"
-            text: modelData
+            text: getAlarmText(delegate.alarmNumber)
         }
 
     }

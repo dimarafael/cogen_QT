@@ -3,7 +3,7 @@
 #include <QQmlContext>
 #include <appmanager.h>
 #include <QApplication>
-
+#include "alarmlistmodel.h"
 
 int main(int argc, char *argv[])
 {
@@ -16,6 +16,11 @@ int main(int argc, char *argv[])
 
     AppManager *appmanager = new AppManager(&app);
     engine.rootContext()->setContextProperty("appmanager", appmanager);
+
+    AlarmListModel *alarmListModel = new AlarmListModel(&app);
+    qmlRegisterSingletonInstance("com.dna.AlarmListModel", 1,0, "AlarmListModel", alarmListModel);
+
+    QObject::connect(appmanager, &AppManager::processAlarms, alarmListModel, &AlarmListModel::processAlarms);
 
     const QUrl url(u"qrc:/cogen/Main.qml"_qs);
     QObject::connect(&engine, &QQmlApplicationEngine::objectCreated,

@@ -140,16 +140,18 @@ void AppManager::parseModbusResponse(QVector<quint16> data)
 
     setGazPreset(data[69]);
 
-// Alarm list
-    QVector<quint16> *tmpAlmV;
-    tmpAlmV = new QVector<quint16>();
-    tmpAlmV->append(data[0]);
-    tmpAlmV->append(data[1]);
-//    qInfo()<<*tmpAlmV;
-    if(alarmList->checkAlarms(tmpAlmV, &m_almIntList)) {
-        emit almIntListChanged();
-        qInfo() << almIntList();
-    }
+//// Alarm list
+//    QVector<quint16> *tmpAlmV;
+//    tmpAlmV = new QVector<quint16>();
+//    tmpAlmV->append(data[0]);
+//    tmpAlmV->append(data[1]);
+////    qInfo()<<*tmpAlmV;
+//    if(alarmList->checkAlarms(tmpAlmV, &m_almIntList)) {
+//        emit almIntListChanged();
+//        qInfo() << almIntList();
+//    }
+
+    emit processAlarms(data.first(2));
 }
 
 bool AppManager::isModbusConnected() const

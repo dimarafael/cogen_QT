@@ -116,6 +116,8 @@ signals:
 
     void almIntListChanged();
 
+    void processAlarms(QVector<quint16> alarmData);
+
 private:
     modbus *mb;
     Trendlog *tSmokeTrendlog;

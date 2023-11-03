@@ -42,6 +42,9 @@ qt_add_qml_module(appcogen
         img/cooler.svg
         img/air.svg
         img/fan.svg
+    SOURCES
+        alarmlistmodel.h alarmlistmodel.cpp
+        alarmitem.h alarmitem.cpp
 )
 
 set_target_properties(appcogen PROPERTIES
