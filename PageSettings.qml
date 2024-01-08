@@ -18,10 +18,20 @@ Item {
         anchors.fill: parent
         radius: defMargin*2
         color: colorMenuBg
+        anchors.margins: defMargin*2
 
-        AlarmList {
-            id: alarmList
-            anchors.fill: parent
+        Item {
+            id: itemAlarmList
+            anchors.left: parent.left
+            anchors.top: parent.top
+            height: parent.height/3
+            width: parent.width*0.7
+
+            AlarmList {
+                id: alarmList
+                anchors.fill: parent
+            }
         }
+
     }
 }

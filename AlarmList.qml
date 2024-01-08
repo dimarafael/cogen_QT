@@ -27,20 +27,46 @@ Item{
         else return "Alarm" + almNumber
     }
 
-    ListView{
-//        width: parent.width
-//        height: parent.height/4
+    Rectangle{
+        id: rectangleAlarmList
         anchors.fill: parent
-        ScrollBar.vertical: ScrollBar { }
+        radius: defMargin*2
+        anchors.margins: defMargin*2
+        color: colorText
 
-//        model: almListModel
-        model: AlarmListModel
-        delegate:   Text{
-            id: delegate
-            required property int alarmNumber
-            color: "white"
-            text: getAlarmText(delegate.alarmNumber)
+        ListView{
+    //        width: parent.width
+    //        height: parent.height/4
+            anchors.fill: parent
+            anchors.margins: defMargin*2
+            clip: true
+            ScrollBar.vertical: ScrollBar { }
+
+    //        model: almListModel
+            model: AlarmListModel
+            delegate:   Text{
+                id: delegate
+                required property int alarmNumber
+                color: "darkred"
+                font.pixelSize: rectangleAlarmList.height/7
+                text: getAlarmText(delegate.alarmNumber)
+            }
+
         }
-
     }
+
+    InnerShadow{
+        anchors.fill: rectangleAlarmList
+        source: rectangleAlarmList
+        // horizontalOffset: root.width/30
+        // verticalOffset: root.width/30
+        horizontalOffset: 2
+        verticalOffset: 2
+        radius: 3.0
+        samples: 17
+        spread: 0.1
+        color: "#000000"
+    }
+
+
 }

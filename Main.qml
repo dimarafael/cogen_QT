@@ -652,7 +652,7 @@ Window {
 //                           max: new Date(1970, 0, 1, chartStartHours, 1, 0, 0) // 01:00
                            max: new Date(1970, 0, 1, chartStartHours, 20, 0, 0) // 01:00
                            format: "mm:ss"
-                           tickCount: 7
+                           tickCount: 5
                            labelsColor: colorText
                            gridVisible: true
                            lineVisible: true
