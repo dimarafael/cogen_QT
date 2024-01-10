@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE QtCreatorProject>
-<!-- Written by QtCreator 11.0.3, 2023-11-23T11:51:32. -->
+<!-- Written by QtCreator 12.0.0, 2024-01-10T09:07:30. -->
 <qtcreator>
  <data>
   <variable>EnvironmentId</variable>
@@ -37,6 +37,7 @@
    <value type="bool" key="EditorConfiguration.MouseHiding">true</value>
    <value type="bool" key="EditorConfiguration.MouseNavigation">true</value>
    <value type="int" key="EditorConfiguration.PaddingMode">1</value>
+   <value type="int" key="EditorConfiguration.PreferAfterWhitespaceComments">0</value>
    <value type="bool" key="EditorConfiguration.PreferSingleLineComments">false</value>
    <value type="bool" key="EditorConfiguration.ScrollWheelZooming">true</value>
    <value type="bool" key="EditorConfiguration.ShowMargin">false</value>
@@ -396,6 +397,7 @@
     <value type="QString" key="ProjectExplorer.ProjectConfiguration.DisplayName">appcogen</value>
     <value type="QString" key="ProjectExplorer.ProjectConfiguration.Id">CMakeProjectManager.CMakeRunConfiguration.appcogen</value>
     <value type="QString" key="ProjectExplorer.RunConfiguration.BuildKey">appcogen</value>
+    <value type="bool" key="ProjectExplorer.RunConfiguration.Customized">false</value>
     <value type="bool" key="RunConfiguration.UseCppDebuggerAuto">true</value>
     <value type="bool" key="RunConfiguration.UseLibrarySearchPath">true</value>
     <value type="bool" key="RunConfiguration.UseQmlDebuggerAuto">true</value>
@@ -720,11 +722,8 @@
      <valuemap type="QVariantMap" key="ProjectExplorer.BuildStepList.Step.0">
       <value type="bool" key="ProjectExplorer.BuildStep.Enabled">true</value>
       <value type="QString" key="ProjectExplorer.ProjectConfiguration.Id">RemoteLinux.MakeInstall</value>
-      <value type="bool" key="RemoteLinux.MakeInstall.CleanInstallRoot">true</value>
       <value type="QString" key="RemoteLinux.MakeInstall.InstallRoot">C:\Users\sholudkod\AppData\Local\Temp\QtCreator-BuGVFZ</value>
       <value type="QString" key="RemoteLinux.MakeInstall.Make">C:\Qt\6.5.1\Boot2Qt\raspberrypi4-64\toolchain\sysroots\x86_64-w64-mingw32\usr\bin\cmake.exe</value>
-      <value type="QString" key="RemoteLinux.MakeInstall.MakeArguments">--build C:/Users/sholudkod/Documents/QTProjects/build-cogen-Boot2Qt_6_5_1_Raspberry_Pi_4_64_bit-Debug --target install</value>
-      <value type="QString" key="RemoteLinux.MakeInstall.MakeCommand">C:\Qt\6.5.1\Boot2Qt\raspberrypi4-64\toolchain\sysroots\x86_64-w64-mingw32\usr\bin\cmake.exe</value>
      </valuemap>
      <valuemap type="QVariantMap" key="ProjectExplorer.BuildStepList.Step.1">
       <value type="bool" key="ProjectExplorer.BuildStep.Enabled">true</value>
@@ -769,6 +768,7 @@
     <value type="QString" key="ProjectExplorer.ProjectConfiguration.DisplayName">appcogen</value>
     <value type="QString" key="ProjectExplorer.ProjectConfiguration.Id">QdbLinuxRunConfiguration:appcogen</value>
     <value type="QString" key="ProjectExplorer.RunConfiguration.BuildKey">appcogen</value>
+    <value type="bool" key="ProjectExplorer.RunConfiguration.Customized">false</value>
     <value type="int" key="RemoteLinux.EnvironmentAspect.Version">1</value>
     <value type="bool" key="RunConfiguration.UseCppDebuggerAuto">true</value>
     <value type="bool" key="RunConfiguration.UseQmlDebuggerAuto">true</value>

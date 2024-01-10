@@ -1,7 +1,7 @@
 import QtQuick
 import QtQuick.Window
 import QtQuick.Layouts
-//import QtQuick.VirtualKeyboard
+import QtQuick.VirtualKeyboard
 import QtQuick.Controls
 import Qt5Compat.GraphicalEffects
 import QtCharts
@@ -706,7 +706,47 @@ Window {
         }
     }
 
+    InputPanel{
+        id: inputPanel
+        z: 100
+        y: yPositionWhenHidden
+        x: 0
+        width: parent.width
 
+        property real yPositionWhenHidden: parent.height
+
+        states: State {
+            name: "visible"
+            when: inputPanel.active
+            PropertyChanges {
+                target: inputPanel
+                y: inputPanel.yPositionWhenHidden - inputPanel.height
+            }
+        }
+        transitions: Transition {
+            id: inputPanelTransition
+            from: ""
+            to: "visible"
+            reversible: true
+            enabled: !VirtualKeyboardSettings.fullScreenMode
+            ParallelAnimation {
+                NumberAnimation {
+                    properties: "y"
+                    duration: 250
+                    easing.type: Easing.InOutQuad
+                }
+            }
+        }
+        Binding {
+            target: InputContext
+            property: "animating"
+            value: inputPanelTransition.running
+            restoreMode: Binding.RestoreBinding
+
+        }
+
+
+    }
 
     //PopUp Modbus connection error
     Item{

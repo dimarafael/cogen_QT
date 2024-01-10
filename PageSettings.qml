@@ -32,6 +32,21 @@ Item {
                 anchors.fill: parent
             }
         }
+        Item{
+            id: itemBottom
+            anchors.left: parent.left
+            anchors.top: itemAlarmList.bottom
+            width: parent.width
+            height: parent.height - itemAlarmList.height
+
+            TextField{
+                width: parent.width / 4
+                height: parent.height / 8
+                // inputMask: "000"
+                // validator: IntValidator {}
+                inputMethodHints: Qt.ImhDigitsOnly
+            }
+        }
 
     }
 }
