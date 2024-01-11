@@ -16,9 +16,19 @@ qt_add_executable(appcogen
     alarmlist.h alarmlist.cpp
 )
 
+if(WIN32)
+  set(QUICK_CONTROLS "QtQuick.Controls.Windows")
+elseif(APPLE)
+  set(QUICK_CONTROLS "QtQuick.Controls.macOS")
+else()
+  set(QUICK_CONTROLS "QtQuick.Controls.Basic")
+endif()
+
 qt_add_qml_module(appcogen
     URI cogen
     VERSION 1.0
+    IMPORTS
+        ${QUICK_CONTROLS}
     QML_FILES
         Main.qml
         TextFit.qml

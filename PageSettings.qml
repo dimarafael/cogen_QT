@@ -8,12 +8,11 @@ Item {
     id: itemPageSettings
     anchors.fill: parent
     z: 3
+    MouseArea{
+    anchors.fill: parent
+    onClicked: focus = true
 
-
-
-
-
-    Rectangle{
+        Rectangle{
         id: pageSettingsRect
         anchors.fill: parent
         radius: defMargin*2
@@ -39,6 +38,7 @@ Item {
             width: parent.width
             height: parent.height - itemAlarmList.height
 
+
             TextField{
                 width: parent.width / 4
                 height: parent.height / 8
@@ -46,7 +46,12 @@ Item {
                 // validator: IntValidator {}
                 inputMethodHints: Qt.ImhDigitsOnly
             }
+
+
+
         }
+
+    }
 
     }
 }

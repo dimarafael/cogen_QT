@@ -69,6 +69,7 @@ Item {
             anchors.fill: parent
             onClicked: {
                 itemRoot.clicked()
+                focus = true
             }
         }
 

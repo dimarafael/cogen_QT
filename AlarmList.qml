@@ -35,31 +35,32 @@ Item{
         color: colorText
 
         ListView{
-    //        width: parent.width
-    //        height: parent.height/4
+            id: listView
             anchors.fill: parent
             anchors.margins: defMargin*2
             clip: true
             ScrollBar.vertical: ScrollBar { }
 
-    //        model: almListModel
+            MouseArea {
+                anchors.fill: parent
+                onClicked: listView.forceActiveFocus();
+            }
+
             model: AlarmListModel
             delegate:   Text{
                 id: delegate
                 required property int alarmNumber
                 color: "darkred"
-                font.pixelSize: rectangleAlarmList.height/7
+                font.pixelSize: listView.height/8
                 text: getAlarmText(delegate.alarmNumber)
             }
-
         }
+
     }
 
     InnerShadow{
         anchors.fill: rectangleAlarmList
         source: rectangleAlarmList
-        // horizontalOffset: root.width/30
-        // verticalOffset: root.width/30
         horizontalOffset: 2
         verticalOffset: 2
         radius: 3.0
