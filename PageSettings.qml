@@ -2,9 +2,12 @@ import QtQuick
 import QtQuick.Layouts
 import QtQuick.Controls
 import Qt5Compat.GraphicalEffects
+import QtQuick.VirtualKeyboard
 
 
 Item {
+    property var inputItem: InputContext.priv.inputItem
+
     id: itemPageSettings
     anchors.fill: parent
     z: 3
@@ -40,11 +43,18 @@ Item {
 
 
             TextField{
+                id: txt1
+                anchors.verticalCenter: parent.verticalCenter
                 width: parent.width / 4
                 height: parent.height / 8
                 // inputMask: "000"
                 // validator: IntValidator {}
                 inputMethodHints: Qt.ImhDigitsOnly
+                // onFocusChanged: {
+                //     var cursorRectangle = txt1.mapToItem(window, 0, 0)
+
+                //     console.log("x=" + cursorRectangle.x + " y=" + cursorRectangle.y)
+                // }
             }
 
 

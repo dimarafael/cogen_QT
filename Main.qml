@@ -2,7 +2,7 @@ import QtQuick
 import QtQuick.Window
 import QtQuick.Layouts
 import QtQuick.VirtualKeyboard
-// import QtQuick.Controls
+import QtQuick.Controls
 import Qt5Compat.GraphicalEffects
 import QtCharts
 
@@ -185,7 +185,9 @@ Window {
     }
 
     MouseArea{
-        anchors.fill: parent
+        id: content
+        width: window.width
+        height: window.height
         onClicked: focus = true
 
         Item{
@@ -713,6 +715,7 @@ Window {
             }
         }
     }
+
     InputPanel{
         id: inputPanel
         z: 100
@@ -721,18 +724,42 @@ Window {
         width: parent.width
 
         property real yPositionWhenHidden: parent.height
+        property real yPositionOfFocusedElement: 0
+        property real heightOfFocusedElement: 0
 
-        states: State {
-            name: "visible"
-            when: inputPanel.active
-            PropertyChanges {
-                target: inputPanel
-                y: inputPanel.yPositionWhenHidden - inputPanel.height
+        states:[
+            State {
+                name: "visible"
+                when: inputPanel.active
+                PropertyChanges {
+                    target: inputPanel
+                    y: inputPanel.yPositionWhenHidden - inputPanel.height
+                }
+                PropertyChanges {
+                    target: content
+                    y: inputPanel.yPositionOfFocusedElement + inputPanel.heightOfFocusedElement+10 < window.height - inputPanel.height ?
+                           0
+                         :
+                           -(inputPanel.height - (window.height - inputPanel.yPositionOfFocusedElement) + inputPanel.heightOfFocusedElement+10)
+                }
+                StateChangeScript{
+                    script:{
+                        inputPanel.yPositionOfFocusedElement = window.activeFocusItem.mapToItem(window, 0, 0).y
+                        inputPanel.heightOfFocusedElement = window.activeFocusItem.height
+                    }
+                }
+            },
+            State {
+                name: "unvisible"
+                when: !inputPanel.active
+                StateChangeScript{
+                    script: console.log("XXX-unvisible")
+                }
             }
-        }
+        ]
         transitions: Transition {
             id: inputPanelTransition
-            from: ""
+            from: "unvisible"
             to: "visible"
             reversible: true
             ParallelAnimation {
@@ -750,7 +777,6 @@ Window {
             restoreMode: Binding.RestoreBinding
 
         }
-
 
     }
 
@@ -790,35 +816,4 @@ Window {
 
     }
 
-
-
-
-//    InputPanel {
-//        id: inputPanel
-//        z: 99
-//        x: 0
-//        y: window.height
-//        width: window.width
-
-//        states: State {
-//            name: "visible"
-//            when: inputPanel.active
-//            PropertyChanges {
-//                target: inputPanel
-//                y: window.height - inputPanel.height
-//            }
-//        }
-//        transitions: Transition {
-//            from: ""
-//            to: "visible"
-//            reversible: true
-//            ParallelAnimation {
-//                NumberAnimation {
-//                    properties: "y"
-//                    duration: 250
-//                    easing.type: Easing.InOutQuad
-//                }
-//            }
-//        }
-//    }
 }
