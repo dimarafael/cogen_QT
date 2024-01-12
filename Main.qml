@@ -723,12 +723,11 @@ Window {
         x: 0
         width: parent.width
 
-        property real yPositionWhenHidden: parent.height
+        property real yPositionWhenHidden: window.height
         property real yPositionOfFocusedElement: 0
         property real heightOfFocusedElement: 0
 
-        states:[
-            State {
+        states: State {
                 name: "visible"
                 when: inputPanel.active
                 PropertyChanges {
@@ -748,18 +747,11 @@ Window {
                         inputPanel.heightOfFocusedElement = window.activeFocusItem.height
                     }
                 }
-            },
-            State {
-                name: "unvisible"
-                when: !inputPanel.active
-                StateChangeScript{
-                    script: console.log("XXX-unvisible")
-                }
             }
-        ]
+
         transitions: Transition {
             id: inputPanelTransition
-            from: "unvisible"
+            from: ""
             to: "visible"
             reversible: true
             ParallelAnimation {
@@ -769,13 +761,6 @@ Window {
                     easing.type: Easing.InOutQuad
                 }
             }
-        }
-        Binding {
-            target: InputContext
-            property: "animating"
-            value: inputPanelTransition.running
-            restoreMode: Binding.RestoreBinding
-
         }
 
     }

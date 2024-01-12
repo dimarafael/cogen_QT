@@ -30,7 +30,7 @@ Item{
     Rectangle{
         id: rectangleAlarmList
         anchors.fill: parent
-        radius: defMargin*2
+        // radius: defMargin*2
         anchors.margins: defMargin*2
         color: colorText
 
@@ -58,16 +58,16 @@ Item{
 
     }
 
-    InnerShadow{
-        anchors.fill: rectangleAlarmList
-        source: rectangleAlarmList
-        horizontalOffset: 2
-        verticalOffset: 2
-        radius: 3.0
-        samples: 17
-        spread: 0.1
-        color: "#000000"
-    }
+    // InnerShadow{
+    //     anchors.fill: rectangleAlarmList
+    //     source: rectangleAlarmList
+    //     horizontalOffset: 2
+    //     verticalOffset: 2
+    //     radius: 3.0
+    //     samples: 17
+    //     spread: 0.1
+    //     color: "#000000"
+    // }
 
 
 }

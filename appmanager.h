@@ -26,6 +26,8 @@ class AppManager : public QObject
     Q_PROPERTY(int gazPreset READ gazPreset WRITE setGazPreset NOTIFY gazPresetChanged)
     Q_PROPERTY(QList<int> almIntList READ almIntList WRITE setAlmIntList NOTIFY almIntListChanged)
 
+    Q_PROPERTY(float temperatureOverheatSP READ temperatureOverheatSP WRITE setTemperatureOverheatSP NOTIFY temperatureOverheatSPChanged)
+
 public:
     explicit AppManager(QObject *parent = nullptr);
     ~AppManager();
@@ -72,6 +74,9 @@ public:
     QList<int> almIntList() const;
     void setAlmIntList(const QList<int> &newAlmIntList);
 
+    float temperatureOverheatSP() const;
+    void setTemperatureOverheatSP(float newTemperatureOverheatSP);
+
 public slots:
     void onClickButtonDrum();
     void onClickButtonFire();
@@ -84,6 +89,8 @@ public slots:
 
     void startTrendlog(QAbstractSeries *tSmokeSeries, QAbstractSeries *tProductSeries, QAbstractSeries *tRORSeries);
     void stopTrendlog();
+
+    void onSetTemperatureOverheat(float t);
 
 signals:
     void isModbusConnectedChanged();
@@ -118,6 +125,8 @@ signals:
 
     void processAlarms(QVector<quint16> alarmData);
 
+    void temperatureOverheatSPChanged();
+
 private:
     modbus *mb;
     Trendlog *tSmokeTrendlog;
@@ -139,6 +148,7 @@ private:
     bool m_alarmState;
     int m_gazPreset;
     QList<int> m_almIntList;
+    float m_temperatureOverheatSP;
 };
 
 #endif // APPMANAGER_H

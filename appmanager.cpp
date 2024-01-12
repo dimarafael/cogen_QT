@@ -114,6 +114,12 @@ void AppManager::stopTrendlog()
     tRORTrendlog->stopTrending();
 }
 
+void AppManager::onSetTemperatureOverheat(float t)
+{
+    setTemperatureOverheatSP(t);
+    emit writeFloat(106, t);
+}
+
 void AppManager::parseModbusResponse(QVector<quint16> data)
 {
 //    qDebug() << data;
@@ -121,6 +127,7 @@ void AppManager::parseModbusResponse(QVector<quint16> data)
     tProductTrendlog->setValue(temperatureProduct());
     setTemperatureSmoke(modbus::toFloat(data[5], data[6]));
     tSmokeTrendlog->setValue(temperatureSmoke());
+    setTemperatureOverheatSP(modbus::toFloat(data[7], data[8]));
 
     setDP(modbus::toFloat(data[9], data[10]));
 
@@ -334,4 +341,17 @@ void AppManager::setAlmIntList(const QList<int> &newAlmIntList)
         return;
     m_almIntList = newAlmIntList;
     emit almIntListChanged();
+}
+
+float AppManager::temperatureOverheatSP() const
+{
+    return m_temperatureOverheatSP;
+}
+
+void AppManager::setTemperatureOverheatSP(float newTemperatureOverheatSP)
+{
+    if (qFuzzyCompare(m_temperatureOverheatSP, newTemperatureOverheatSP))
+        return;
+    m_temperatureOverheatSP = newTemperatureOverheatSP;
+    emit temperatureOverheatSPChanged();
 }

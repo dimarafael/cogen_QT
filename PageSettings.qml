@@ -22,46 +22,45 @@ Item {
         color: colorMenuBg
         anchors.margins: defMargin*2
 
-        Item {
-            id: itemAlarmList
-            anchors.left: parent.left
-            anchors.top: parent.top
-            height: parent.height/3
-            width: parent.width*0.7
+            Item {
+                id: itemAlarmList
+                anchors.left: parent.left
+                anchors.top: parent.top
+                height: parent.height/3
+                width: parent.width*0.7
 
-            AlarmList {
-                id: alarmList
-                anchors.fill: parent
+                AlarmList {
+                    id: alarmList
+                    anchors.fill: parent
+                }
             }
-        }
-        Item{
-            id: itemBottom
-            anchors.left: parent.left
-            anchors.top: itemAlarmList.bottom
-            width: parent.width
-            height: parent.height - itemAlarmList.height
+            Item{
+                id: itemBottom
+                anchors.left: parent.left
+                anchors.top: itemAlarmList.bottom
+                width: parent.width
+                height: parent.height - itemAlarmList.height
 
 
-            TextField{
-                id: txt1
-                anchors.verticalCenter: parent.verticalCenter
-                width: parent.width / 4
-                height: parent.height / 8
-                // inputMask: "000"
-                // validator: IntValidator {}
-                inputMethodHints: Qt.ImhDigitsOnly
-                // onFocusChanged: {
-                //     var cursorRectangle = txt1.mapToItem(window, 0, 0)
+                SetpointField {
+                    id: txt1
+                    width: parent.width / 4
+                    height: parent.height / 7
+                    anchors.verticalCenter: parent.verticalCenter
 
-                //     console.log("x=" + cursorRectangle.x + " y=" + cursorRectangle.y)
-                // }
+                    minVal: 0
+                    maxVal: 999
+                    units: "°C"
+
+                    value: appmanager.temperatureOverheatSP
+                    // onSetValue: appmanager.onSetTemperatureOverheat(value)
+                    onSetValue: (value) => appmanager.onSetTemperatureOverheat(value)
+                }
+
+
             }
 
-
-
         }
-
-    }
 
     }
 }
