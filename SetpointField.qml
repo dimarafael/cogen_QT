@@ -20,8 +20,6 @@ Rectangle {
         id: tooltip
         width: tooltipText.width + height
         height: root.height / 2
-        // width: root.width - 8
-        // height: root.height / 2
         color: "lightgrey"
         anchors.horizontalCenter: root.horizontalCenter
         y: -(height + 2)

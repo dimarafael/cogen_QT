@@ -53,6 +53,7 @@ qt_add_qml_module(appcogen
         img/cooler.svg
         img/air.svg
         img/fan.svg
+        img/check.svg
     SOURCES
         alarmlistmodel.h alarmlistmodel.cpp
         alarmitem.h alarmitem.cpp

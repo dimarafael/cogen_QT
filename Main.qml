@@ -668,7 +668,7 @@ Window {
                             }
 
 
-                            ValueAxis {
+                            ValuesAxis {
                                 id: chartYAxis
                                 min: 0
                                 max: 300
@@ -676,7 +676,7 @@ Window {
                                 tickCount: 7
                                 minorTickCount: 4
                             }
-                            ValueAxis {
+                            ValuesAxis {
                                 id: chartYAxisROR
                                 min: 0
                                 max: 30
