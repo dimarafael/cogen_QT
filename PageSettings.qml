@@ -22,7 +22,7 @@ Item {
         color: colorMenuBg
         anchors.margins: defMargin*2
 
-            Item {
+            Item { // alarm list
                 id: itemAlarmList
                 anchors.left: parent.left
                 anchors.top: parent.top
@@ -35,7 +35,7 @@ Item {
                 }
             }
 
-            Item {
+            Item { // acknowledge button
                 id: itemCheck
                 anchors.right: parent.right
                 anchors.top: parent.top
@@ -87,7 +87,7 @@ Item {
                     Item {
                         id: itemParameter1
                         width: parent.width
-                        height: parent.height/3
+                        height: parent.height/2
                         anchors.top: parent.top
                         anchors.left: parent.left
 
@@ -96,15 +96,16 @@ Item {
                             color: "#ffffff"
                             text: "Overheat temperature"
                             anchors.horizontalCenter: parent.horizontalCenter
-                            font.pixelSize: itemBottom.height / 10
+                            anchors.bottom: setpointField1.top
+                            anchors.bottomMargin: font.pixelSize / 3
+                            font.pixelSize: itemBottom.height / 14
                         }
 
                         SetpointField {
                             id: setpointField1
                             width: parent.width / 2
                             height: itemBottom.height / 7
-                            anchors.horizontalCenter: parent.horizontalCenter
-                            anchors.top: labelParameter1.bottom
+                            anchors.centerIn: parent
 
                             minVal: 0
                             maxVal: 999
@@ -118,64 +119,35 @@ Item {
                     Item {
                         id: itemParameter2
                         width: parent.width
-                        height: parent.height/3
+                        height: parent.height/2
                         anchors.top: itemParameter1.bottom
                         anchors.left: parent.left
 
                         Label{
                             id: labelParameter2
                             color: "#ffffff"
-                            text: "Drum speed"
+                            text: "Cooller speed"
                             anchors.horizontalCenter: parent.horizontalCenter
-                            font.pixelSize: itemBottom.height / 10
+                            anchors.bottom: setpointField2.top
+                            anchors.bottomMargin: font.pixelSize / 3
+                            font.pixelSize: itemBottom.height / 14
                         }
 
                         SetpointField {
                             id: setpointField2
                             width: parent.width / 2
                             height: itemBottom.height / 7
-                            anchors.horizontalCenter: parent.horizontalCenter
-                            anchors.top: labelParameter2.bottom
+                            anchors.centerIn: parent
 
                             minVal: 0
-                            maxVal: 999
-                            units: "rpm"
-
-                            value: appmanager.temperatureOverheatSP
-                            onSetValue: (value) => appmanager.onSetTemperatureOverheat(value)
-                        }
-                    }
-
-                    Item {
-                        id: itemParameter3
-                        width: parent.width
-                        height: parent.height/3
-                        anchors.top: itemParameter2.bottom
-                        anchors.left: parent.left
-
-                        Label{
-                            id: labelParameter3
-                            color: "#ffffff"
-                            text: "Cooller speed"
-                            anchors.horizontalCenter: parent.horizontalCenter
-                            font.pixelSize: itemBottom.height / 10
-                        }
-
-                        SetpointField {
-                            id: setpointField3
-                            width: parent.width / 2
-                            height: itemBottom.height / 7
-                            anchors.horizontalCenter: parent.horizontalCenter
-                            anchors.top: labelParameter3.bottom
-
-                            minVal: 0
-                            maxVal: 999
+                            maxVal: 100
                             units: "%"
 
-                            value: appmanager.temperatureOverheatSP
-                            onSetValue: (value) => appmanager.onSetTemperatureOverheat(value)
+                            value: appmanager.coollerSpeed
+                            onSetValue: (value) => appmanager.onSetCoollerSpeed(value)
                         }
                     }
+
 
                 }
 
@@ -189,65 +161,70 @@ Item {
                     }
 
                     Item {
-                        id: itemParameter4
+                        id: itemParameter3
                         width: parent.width
-                        height: parent.height/3
+                        height: parent.height/2
                         anchors.top: parent.top
                         anchors.left: parent.left
 
                         Label{
-                            id: labelParameter4
+                            id: labelParameter3
                             color: "#ffffff"
-                            text: "Smoke extractor speed"
+                            text: "Minimal exhaustion pressure"
                             anchors.horizontalCenter: parent.horizontalCenter
-                            font.pixelSize: itemBottom.height / 10
+                            anchors.bottom: setpointField3.top
+                            anchors.bottomMargin: font.pixelSize / 3
+                            font.pixelSize: itemBottom.height / 14
                         }
 
                         SetpointField {
-                            id: setpointField4
+                            id: setpointField3
                             width: parent.width / 2
                             height: itemBottom.height / 7
-                            anchors.horizontalCenter: parent.horizontalCenter
-                            anchors.top: labelParameter4.bottom
+                            anchors.centerIn: parent
 
                             minVal: 0
                             maxVal: 999
-                            units: "%"
+                            units: "Pa"
 
-                            value: appmanager.temperatureOverheatSP
-                            onSetValue: (value) => appmanager.onSetTemperatureOverheat(value)
+                            value: appmanager.dPminSP
+                            onSetValue: (value) => appmanager.onDPminSP(value)
                         }
                     }
 
                     Item {
-                        id: itemParameter5
+                        id: itemParameter4
                         width: parent.width
-                        height: parent.height/3
-                        anchors.top: itemParameter4.bottom
+                        height: parent.height/2
+                        anchors.top: itemParameter3.bottom
                         anchors.left: parent.left
 
-                        Label{
-                            id: labelParameter5
-                            color: "#ffffff"
-                            text: "Minimal exhaustion pressure"
-                            anchors.horizontalCenter: parent.horizontalCenter
-                            font.pixelSize: itemBottom.height / 10
+                        // Rectangle{
+                        //     anchors.fill: parent
+                        //     color: "blue"
+                        // }
+                        Column{
+                            anchors.fill: parent
+                            anchors.leftMargin: defMargin*2
+                            spacing: itemBottom.height / 14
+                            Label{
+                                id: labelParameter4_1
+                                color: "#ffffff"
+                                text: "Temperature in<BR>electric cabinet = " + appmanager.temperatureBox + " °C"
+                                anchors.left: parent.left
+                                font.pixelSize: itemBottom.height / 14
+                            }
+                            Label{
+                                id: labelParameter4_2
+                                color: "#ffffff"
+                                text: "Working time " + appmanager.workTime + " h"
+                                anchors.left: parent.left
+                                font.pixelSize: itemBottom.height / 14
+                            }
                         }
 
-                        SetpointField {
-                            id: setpointField5
-                            width: parent.width / 2
-                            height: itemBottom.height / 7
-                            anchors.horizontalCenter: parent.horizontalCenter
-                            anchors.top: labelParameter5.bottom
 
-                            minVal: 0
-                            maxVal: 999
-                            units: "°C"
 
-                            value: appmanager.temperatureOverheatSP
-                            onSetValue: (value) => appmanager.onSetTemperatureOverheat(value)
-                        }
                     }
 
                 }

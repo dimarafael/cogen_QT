@@ -63,6 +63,7 @@ Rectangle {
 
         onFocusChanged: {
             if(!focus) text = root.value
+            else txtFld.selectAll()
         }
 
         background: Rectangle {

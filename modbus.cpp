@@ -85,6 +85,14 @@ quint16 modbus::floatToHighWord(float value)
     return res;
 }
 
+quint32 modbus::toUint32(quint16 low, quint16 high)
+{
+    quint32 joined = ((quint32)high<<16)|low;
+    // quint32 res;
+    // memcpy(&res, &joined, sizeof res);
+    return joined;
+}
+
 void modbus::writeHoldingRegister(int addr, qint16 value){
     QVector<quint16> vDataWrite(1);
     vDataWrite[0] = value;

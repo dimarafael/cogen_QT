@@ -15,6 +15,7 @@ public:
     static float toFloat(quint16 low, quint16 high);
     static quint16 floatToLowWord(float value);
     static quint16 floatToHighWord(float value);
+    static quint32 toUint32(quint16 low, quint16 high);
 
 public slots:
     void writeHoldingRegister(int addr, qint16 value);

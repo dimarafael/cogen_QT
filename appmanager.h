@@ -27,6 +27,10 @@ class AppManager : public QObject
     Q_PROPERTY(QList<int> almIntList READ almIntList WRITE setAlmIntList NOTIFY almIntListChanged)
 
     Q_PROPERTY(float temperatureOverheatSP READ temperatureOverheatSP WRITE setTemperatureOverheatSP NOTIFY temperatureOverheatSPChanged)
+    Q_PROPERTY(float temperatureBox READ temperatureBox WRITE setTemperatureBox NOTIFY temperatureBoxChanged)
+    Q_PROPERTY(float coollerSpeed READ coollerSpeed WRITE setCoollerSpeed NOTIFY coollerSpeedChanged)
+    Q_PROPERTY(float dPminSP READ dPminSP WRITE setDPminSP NOTIFY dPminSPChanged)
+    Q_PROPERTY(quint32 workTime READ workTime WRITE setWorkTime NOTIFY workTimeChanged)
 
 public:
     explicit AppManager(QObject *parent = nullptr);
@@ -77,6 +81,18 @@ public:
     float temperatureOverheatSP() const;
     void setTemperatureOverheatSP(float newTemperatureOverheatSP);
 
+    float temperatureBox() const;
+    void setTemperatureBox(float newTemperatureBox);
+
+    float coollerSpeed() const;
+    void setCoollerSpeed(float newCoollerSpeed);
+
+    float dPminSP() const;
+    void setDPminSP(float newDPminSP);
+
+    quint32 workTime() const;
+    void setWorkTime(quint32 newWorkTime);
+
 public slots:
     void onClickButtonDrum();
     void onClickButtonFire();
@@ -93,6 +109,8 @@ public slots:
     void stopTrendlog();
 
     void onSetTemperatureOverheat(float t);
+    void onSetCoollerSpeed(float spd);
+    void onDPminSP(float val);
 
 signals:
     void isModbusConnectedChanged();
@@ -129,6 +147,14 @@ signals:
 
     void temperatureOverheatSPChanged();
 
+    void temperatureBoxChanged();
+
+    void coollerSpeedChanged();
+
+    void dPminSPChanged();
+
+    void workTimeChanged();
+
 private:
     modbus *mb;
     Trendlog *tSmokeTrendlog;
@@ -151,6 +177,10 @@ private:
     int m_gazPreset;
     QList<int> m_almIntList;
     float m_temperatureOverheatSP;
+    float m_temperatureBox;
+    float m_coollerSpeed;
+    float m_dPminSP;
+    quint32 m_workTime;
 };
 
 #endif // APPMANAGER_H

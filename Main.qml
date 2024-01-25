@@ -169,6 +169,7 @@ Window {
         SequentialAnimation{
             running: appmanager.alarmState
             loops: Animation.Infinite
+            alwaysRunToEnd: true
             OpacityAnimator{
                 target: backgroundAlarm
                 from: 0

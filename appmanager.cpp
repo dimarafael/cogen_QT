@@ -125,6 +125,20 @@ void AppManager::onSetTemperatureOverheat(float t)
     emit writeFloat(106, t);
 }
 
+void AppManager::onSetCoollerSpeed(float spd)
+{
+    if(spd >= 0 && spd <= 100){
+        setCoollerSpeed(spd);
+        emit writeFloat(120, spd);
+    }
+}
+
+void AppManager::onDPminSP(float val)
+{
+    setDPminSP(val);
+    emit writeFloat(110, val);
+}
+
 void AppManager::parseModbusResponse(QVector<quint16> data)
 {
 //    qDebug() << data;
@@ -135,6 +149,7 @@ void AppManager::parseModbusResponse(QVector<quint16> data)
     setTemperatureOverheatSP(modbus::toFloat(data[7], data[8]));
 
     setDP(modbus::toFloat(data[9], data[10]));
+    setDPminSP(modbus::toFloat(data[11], data[12]));
 
 
     setButtonDrum(data[13]>0);
@@ -142,26 +157,19 @@ void AppManager::parseModbusResponse(QVector<quint16> data)
     setDrumSP(modbus::toFloat(data[15], data[16]));
     setFanSP(modbus::toFloat(data[18], data[19]));
     setButtonCooler(data[20]>0);
+    setCoollerSpeed(modbus::toFloat(data[21], data[22]));
 
     setButtonFire(data[23]>0);
 
     setAlarmState(data[27]>0);
+    setTemperatureBox(modbus::toFloat(data[28], data[29]));
+
+    setWorkTime(modbus::toUint32(data[40], data[41]));
 
     setTemperatureROR(modbus::toFloat(data[45], data[46]));
     tRORTrendlog->setValue(temperatureROR());
 
     setGazPreset(data[69]);
-
-//// Alarm list
-//    QVector<quint16> *tmpAlmV;
-//    tmpAlmV = new QVector<quint16>();
-//    tmpAlmV->append(data[0]);
-//    tmpAlmV->append(data[1]);
-////    qInfo()<<*tmpAlmV;
-//    if(alarmList->checkAlarms(tmpAlmV, &m_almIntList)) {
-//        emit almIntListChanged();
-//        qInfo() << almIntList();
-//    }
 
     emit processAlarms(data.first(2));
 }
@@ -359,4 +367,56 @@ void AppManager::setTemperatureOverheatSP(float newTemperatureOverheatSP)
         return;
     m_temperatureOverheatSP = newTemperatureOverheatSP;
     emit temperatureOverheatSPChanged();
+}
+
+float AppManager::temperatureBox() const
+{
+    return m_temperatureBox;
+}
+
+void AppManager::setTemperatureBox(float newTemperatureBox)
+{
+    if (qFuzzyCompare(m_temperatureBox, newTemperatureBox))
+        return;
+    m_temperatureBox = newTemperatureBox;
+    emit temperatureBoxChanged();
+}
+
+float AppManager::coollerSpeed() const
+{
+    return m_coollerSpeed;
+}
+
+void AppManager::setCoollerSpeed(float newCoollerSpeed)
+{
+    if (qFuzzyCompare(m_coollerSpeed, newCoollerSpeed))
+        return;
+    m_coollerSpeed = newCoollerSpeed;
+    emit coollerSpeedChanged();
+}
+
+float AppManager::dPminSP() const
+{
+    return m_dPminSP;
+}
+
+void AppManager::setDPminSP(float newDPminSP)
+{
+    if (qFuzzyCompare(m_dPminSP, newDPminSP))
+        return;
+    m_dPminSP = newDPminSP;
+    emit dPminSPChanged();
+}
+
+quint32 AppManager::workTime() const
+{
+    return m_workTime;
+}
+
+void AppManager::setWorkTime(quint32 newWorkTime)
+{
+    if (m_workTime == newWorkTime)
+        return;
+    m_workTime = newWorkTime;
+    emit workTimeChanged();
 }
