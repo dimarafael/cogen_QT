@@ -16,6 +16,8 @@ Rectangle {
     property string units: ""
     signal setValue(real value);
 
+    property bool dummy: false // to force update text in text field
+
     Rectangle{
         id: tooltip
         width: tooltipText.width + height
@@ -48,13 +50,13 @@ Rectangle {
         width: parent.width
         height: parent.height
         validator: IntValidator{bottom: root.minVal; top: root.maxVal;}
-        inputMethodHints: Qt.ImhDigitsOnly
+        inputMethodHints: Qt.ImhDigitsOnly | Qt.ImhNoTextHandles // | hide selection handles
         font.pixelSize: height*0.7
         verticalAlignment: Text.AlignVCenter
         horizontalAlignment: Text.AlignRight
         rightPadding: units.width + height * 0.1
 
-        text: root.value
+        text: root.dummy? root.value : root.value
 
         onAccepted: {
             setValue(Number(text))
@@ -62,7 +64,7 @@ Rectangle {
         }
 
         onFocusChanged: {
-            if(!focus) text = root.value
+            if(!focus) root.dummy = ! root.dummy
             else txtFld.selectAll()
         }
 

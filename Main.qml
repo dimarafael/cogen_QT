@@ -611,7 +611,7 @@ Window {
                             }
                         }
                         TopMenuItem2Lines {
-                            txtCol:  "#9333ea"
+                            txtCol:  "plum" //"#9333ea"
                             text1: Math.round(appmanager.fanSP)+"%"
                             text2: Math.round(appmanager.dP)+"Pa"
                             img: "img/fan.svg"

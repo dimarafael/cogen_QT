@@ -41,6 +41,7 @@ qt_add_qml_module(appcogen
         PageSettings.qml
         AlarmList.qml
         SetpointField.qml
+        SetpointLabelLeft.qml
     RESOURCES
         img/logo.svg
         img/Coffee_Bean.svg
@@ -54,6 +55,7 @@ qt_add_qml_module(appcogen
         img/air.svg
         img/fan.svg
         img/check.svg
+        img/wrench.svg
     SOURCES
         alarmlistmodel.h alarmlistmodel.cpp
         alarmitem.h alarmitem.cpp
