@@ -43,6 +43,10 @@ AppManager::AppManager(QObject *parent) : QObject{parent}
     connect(this, &AppManager::writeRegister, mb, &modbus::writeHoldingRegister);
     connect(this, &AppManager::writeFloat, mb, &modbus::writeFloatHolding);
 
+    for(int i = 0; i<10; i++){
+        m_gazConfig.append(i+1);
+    }
+
 }
 
 AppManager::~AppManager()
@@ -139,6 +143,23 @@ void AppManager::onDPminSP(float val)
     emit writeFloat(110, val);
 }
 
+void AppManager::onSetGazStartLevel(float lvl)
+{
+    if(lvl >= 0 && lvl <= 100){
+        setGazStartLevel(lvl);
+        emit writeFloat(146, lvl);
+    }
+}
+
+void AppManager::onSetGazConfig(int position, float value)
+{
+    if((position >= 0 && position <= 10) && (value >= 0 && value <= 100)){
+        m_gazConfig[position] = value;
+        emit gazConfigChanged();
+        emit writeFloat(148 + position*2 ,value);
+    }
+}
+
 void AppManager::parseModbusResponse(QVector<quint16> data)
 {
 //    qDebug() << data;
@@ -168,6 +189,20 @@ void AppManager::parseModbusResponse(QVector<quint16> data)
 
     setTemperatureROR(modbus::toFloat(data[45], data[46]));
     tRORTrendlog->setValue(temperatureROR());
+
+    setGazStartLevel(modbus::toFloat(data[47], data[48]));
+
+    m_gazConfig[0] = modbus::toFloat(data[49], data[50]);
+    m_gazConfig[1] = modbus::toFloat(data[51], data[52]);
+    m_gazConfig[2] = modbus::toFloat(data[53], data[54]);
+    m_gazConfig[3] = modbus::toFloat(data[55], data[56]);
+    m_gazConfig[4] = modbus::toFloat(data[57], data[58]);
+    m_gazConfig[5] = modbus::toFloat(data[59], data[60]);
+    m_gazConfig[6] = modbus::toFloat(data[61], data[62]);
+    m_gazConfig[7] = modbus::toFloat(data[63], data[64]);
+    m_gazConfig[8] = modbus::toFloat(data[65], data[66]);
+    m_gazConfig[9] = modbus::toFloat(data[67], data[68]);
+    emit gazConfigChanged();
 
     setGazPreset(data[69]);
 
@@ -419,4 +454,30 @@ void AppManager::setWorkTime(quint32 newWorkTime)
         return;
     m_workTime = newWorkTime;
     emit workTimeChanged();
+}
+
+float AppManager::gazStartLevel() const
+{
+    return m_gazStartLevel;
+}
+
+void AppManager::setGazStartLevel(float newGazStartLevel)
+{
+    if (qFuzzyCompare(m_gazStartLevel, newGazStartLevel))
+        return;
+    m_gazStartLevel = newGazStartLevel;
+    emit gazStartLevelChanged();
+}
+
+QVector<float> AppManager::gazConfig() const
+{
+    return m_gazConfig;
+}
+
+void AppManager::setGazConfig(const QVector<float> &newGazConfig)
+{
+    if (m_gazConfig == newGazConfig)
+        return;
+    m_gazConfig = newGazConfig;
+    emit gazConfigChanged();
 }

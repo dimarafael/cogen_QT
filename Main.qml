@@ -731,10 +731,20 @@ Window {
         states: State {
                 name: "visible"
                 when: inputPanel.active
+
+                StateChangeScript{
+                    name: "visibleScript"
+                    script:{
+                        inputPanel.yPositionOfFocusedElement = window.activeFocusItem.mapToItem(window, 0, 0).y
+                        inputPanel.heightOfFocusedElement = window.activeFocusItem.height
+                    }
+                }
+
                 PropertyChanges {
                     target: inputPanel
                     y: inputPanel.yPositionWhenHidden - inputPanel.height
                 }
+
                 PropertyChanges {
                     target: content
                     y: inputPanel.yPositionOfFocusedElement + inputPanel.heightOfFocusedElement+10 < window.height - inputPanel.height ?
@@ -742,12 +752,7 @@ Window {
                          :
                            -(inputPanel.height - (window.height - inputPanel.yPositionOfFocusedElement) + inputPanel.heightOfFocusedElement+10)
                 }
-                StateChangeScript{
-                    script:{
-                        inputPanel.yPositionOfFocusedElement = window.activeFocusItem.mapToItem(window, 0, 0).y
-                        inputPanel.heightOfFocusedElement = window.activeFocusItem.height
-                    }
-                }
+
             }
 
         transitions: Transition {

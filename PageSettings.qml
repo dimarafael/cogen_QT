@@ -426,8 +426,8 @@ Item {
                         maxVal: 100
                         units: "%"
 
-                        value: appmanager.coollerSpeed
-                        onSetValue: (value) => appmanager.onSetCoollerSpeed(value)
+                        value: appmanager.gazStartLevel
+                        onSetValue: (value) => appmanager.onSetGazStartLevel(value)
                     }
 
                     Button{
@@ -448,80 +448,80 @@ Item {
                         label: "Value 1"
                         width: pageSettingsGazRect.width / 2
                         height: pageSettingsGazRect.height / 6
-                        value: appmanager.coollerSpeed
-                        onSetValue: (value) => appmanager.onSetCoollerSpeed(value)
+                        value: appmanager.gazConfig[0]
+                        onSetValue: (value) => appmanager.onSetGazConfig(0, value)
                     }
 
                     SetpointLabelLeft {
                         label: "Value 6"
                         width: pageSettingsGazRect.width / 2
                         height: pageSettingsGazRect.height / 6
-                        value: appmanager.coollerSpeed
-                        onSetValue: (value) => appmanager.onSetCoollerSpeed(value)
+                        value: appmanager.gazConfig[5]
+                        onSetValue: (value) => appmanager.onSetGazConfig(5, value)
                     }
 
                     SetpointLabelLeft {
                         label: "Value 2"
                         width: pageSettingsGazRect.width / 2
                         height: pageSettingsGazRect.height / 6
-                        value: appmanager.coollerSpeed
-                        onSetValue: (value) => appmanager.onSetCoollerSpeed(value)
+                        value: appmanager.gazConfig[1]
+                        onSetValue: (value) => appmanager.onSetGazConfig(1, value)
                     }
 
                     SetpointLabelLeft {
                         label: "Value 7"
                         width: pageSettingsGazRect.width / 2
                         height: pageSettingsGazRect.height / 6
-                        value: appmanager.coollerSpeed
-                        onSetValue: (value) => appmanager.onSetCoollerSpeed(value)
+                        value: appmanager.gazConfig[6]
+                        onSetValue: (value) => appmanager.onSetGazConfig(6, value)
                     }
 
                     SetpointLabelLeft {
                         label: "Value 3"
                         width: pageSettingsGazRect.width / 2
                         height: pageSettingsGazRect.height / 6
-                        value: appmanager.coollerSpeed
-                        onSetValue: (value) => appmanager.onSetCoollerSpeed(value)
+                        value: appmanager.gazConfig[2]
+                        onSetValue: (value) => appmanager.onSetGazConfig(2, value)
                     }
 
                     SetpointLabelLeft {
                         label: "Value 8"
                         width: pageSettingsGazRect.width / 2
                         height: pageSettingsGazRect.height / 6
-                        value: appmanager.coollerSpeed
-                        onSetValue: (value) => appmanager.onSetCoollerSpeed(value)
+                        value: appmanager.gazConfig[7]
+                        onSetValue: (value) => appmanager.onSetGazConfig(7, value)
                     }
 
                     SetpointLabelLeft {
                         label: "Value 4"
                         width: pageSettingsGazRect.width / 2
                         height: pageSettingsGazRect.height / 6
-                        value: appmanager.coollerSpeed
-                        onSetValue: (value) => appmanager.onSetCoollerSpeed(value)
+                        value: appmanager.gazConfig[3]
+                        onSetValue: (value) => appmanager.onSetGazConfig(3, value)
                     }
 
                     SetpointLabelLeft {
                         label: "Value 9"
                         width: pageSettingsGazRect.width / 2
                         height: pageSettingsGazRect.height / 6
-                        value: appmanager.coollerSpeed
-                        onSetValue: (value) => appmanager.onSetCoollerSpeed(value)
+                        value: appmanager.gazConfig[8]
+                        onSetValue: (value) => appmanager.onSetGazConfig(8, value)
                     }
 
                     SetpointLabelLeft {
                         label: "Value 5"
                         width: pageSettingsGazRect.width / 2
                         height: pageSettingsGazRect.height / 6
-                        value: appmanager.coollerSpeed
-                        onSetValue: (value) => appmanager.onSetCoollerSpeed(value)
+                        value: appmanager.gazConfig[4]
+                        onSetValue: (value) => appmanager.onSetGazConfig(4, value)
                     }
 
                     SetpointLabelLeft {
                         label: "Value 10"
                         width: pageSettingsGazRect.width / 2
                         height: pageSettingsGazRect.height / 6
-                        value: appmanager.coollerSpeed
-                        onSetValue: (value) => appmanager.onSetCoollerSpeed(value)
+                        value: appmanager.gazConfig[9]
+                        onSetValue: (value) => appmanager.onSetGazConfig(9, value)
                     }
 
                 }

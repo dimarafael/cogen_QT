@@ -32,6 +32,10 @@ class AppManager : public QObject
     Q_PROPERTY(float dPminSP READ dPminSP WRITE setDPminSP NOTIFY dPminSPChanged)
     Q_PROPERTY(quint32 workTime READ workTime WRITE setWorkTime NOTIFY workTimeChanged)
 
+    Q_PROPERTY(float gazStartLevel READ gazStartLevel WRITE setGazStartLevel NOTIFY gazStartLevelChanged)
+    Q_PROPERTY(QVector<float> gazConfig READ gazConfig WRITE setGazConfig NOTIFY gazConfigChanged)
+
+
 public:
     explicit AppManager(QObject *parent = nullptr);
     ~AppManager();
@@ -93,6 +97,12 @@ public:
     quint32 workTime() const;
     void setWorkTime(quint32 newWorkTime);
 
+    float gazStartLevel() const;
+    void setGazStartLevel(float newGazStartLevel);
+
+    QVector<float> gazConfig() const;
+    void setGazConfig(const QVector<float> &newGazConfig);
+
 public slots:
     void onClickButtonDrum();
     void onClickButtonFire();
@@ -111,6 +121,8 @@ public slots:
     void onSetTemperatureOverheat(float t);
     void onSetCoollerSpeed(float spd);
     void onDPminSP(float val);
+    void onSetGazStartLevel(float lvl);
+    void onSetGazConfig(int position, float value);
 
 signals:
     void isModbusConnectedChanged();
@@ -155,6 +167,10 @@ signals:
 
     void workTimeChanged();
 
+    void gazStartLevelChanged();
+
+    void gazConfigChanged();
+
 private:
     modbus *mb;
     Trendlog *tSmokeTrendlog;
@@ -181,6 +197,8 @@ private:
     float m_coollerSpeed;
     float m_dPminSP;
     quint32 m_workTime;
+    float m_gazStartLevel;
+    QVector<float> m_gazConfig;
 };
 
 #endif // APPMANAGER_H
