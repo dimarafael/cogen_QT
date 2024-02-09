@@ -40,7 +40,7 @@ void AlarmListModel::processAlarms(QVector<quint16> alarmData)
         for(int nWord = 0; nWord < alarmData.size(); nWord++){
             for(int nBit = 0; nBit < 16; nBit++){
                 if(alarmData[nWord] & 1<<nBit){
-                    qInfo() << "add alarm " << nBit+16*nWord;
+                    // qInfo() << "add alarm " << nBit+16*nWord;
                     AlarmItem *item =  new AlarmItem(this);
                     item->setAlarmNumber(nBit+16*nWord);
                     m_alarm_list.append(item);
@@ -49,17 +49,17 @@ void AlarmListModel::processAlarms(QVector<quint16> alarmData)
         }
     } else { // add new alarms or remove old
         if(m_oldAlarmData != alarmData){
-            qInfo() << "m_oldAlarmData != alarmData";
+            // qInfo() << "m_oldAlarmData != alarmData";
             beginResetModel();
             for(int nWord = 0; nWord < alarmData.size(); nWord++){
                 for(int nBit = 0; nBit < 16; nBit++){
                     if((alarmData[nWord] & 1<<nBit) && !(m_oldAlarmData[nWord] & 1 << nBit)){
-                        qInfo() << "add alarm " << nBit+16*nWord;
+                        // qInfo() << "add alarm " << nBit+16*nWord;
                         AlarmItem *item =  new AlarmItem(this);
                         item->setAlarmNumber(nBit+16*nWord);
                         m_alarm_list.append(item);
                     } else if(!(alarmData[nWord] & 1<<nBit) && (m_oldAlarmData[nWord] & 1 << nBit)){
-                        qInfo() << "remove alarm " << nBit+16*nWord;
+                        // qInfo() << "remove alarm " << nBit+16*nWord;
                         for(int i =0; i < m_alarm_list.size(); i++){
                             if(m_alarm_list[i]->alarmNumber() == (nBit+16*nWord)) m_alarm_list.remove(i, 1);
                         }

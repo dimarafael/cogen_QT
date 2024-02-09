@@ -679,8 +679,8 @@ Window {
                             }
                             ValuesAxis {
                                 id: chartYAxisROR
-                                min: 0
-                                max: 30
+                                min: -15
+                                max: 15
                                 labelsColor: colorROR
                                 tickCount: 7
                             }
