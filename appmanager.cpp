@@ -207,6 +207,7 @@ void AppManager::parseModbusResponse(QVector<quint16> data)
     setGazPreset(data[69]);
 
     emit processAlarms(data.first(2));
+    setCoolingState(data[1]&2);
 }
 
 bool AppManager::isModbusConnected() const
@@ -480,4 +481,17 @@ void AppManager::setGazConfig(const QVector<float> &newGazConfig)
         return;
     m_gazConfig = newGazConfig;
     emit gazConfigChanged();
+}
+
+bool AppManager::coolingState() const
+{
+    return m_coolingState;
+}
+
+void AppManager::setCoolingState(bool newCoolingState)
+{
+    if (m_coolingState == newCoolingState)
+        return;
+    m_coolingState = newCoolingState;
+    emit coolingStateChanged();
 }

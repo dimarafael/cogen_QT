@@ -34,6 +34,7 @@ class AppManager : public QObject
 
     Q_PROPERTY(float gazStartLevel READ gazStartLevel WRITE setGazStartLevel NOTIFY gazStartLevelChanged)
     Q_PROPERTY(QVector<float> gazConfig READ gazConfig WRITE setGazConfig NOTIFY gazConfigChanged)
+    Q_PROPERTY(bool coolingState READ coolingState WRITE setCoolingState NOTIFY coolingStateChanged)
 
 
 public:
@@ -103,6 +104,9 @@ public:
     QVector<float> gazConfig() const;
     void setGazConfig(const QVector<float> &newGazConfig);
 
+    bool coolingState() const;
+    void setCoolingState(bool newCoolingState);
+
 public slots:
     void onClickButtonDrum();
     void onClickButtonFire();
@@ -171,6 +175,8 @@ signals:
 
     void gazConfigChanged();
 
+    void coolingStateChanged();
+
 private:
     modbus *mb;
     Trendlog *tSmokeTrendlog;
@@ -199,6 +205,7 @@ private:
     quint32 m_workTime;
     float m_gazStartLevel;
     QVector<float> m_gazConfig;
+    bool m_coolingState;
 };
 
 #endif // APPMANAGER_H

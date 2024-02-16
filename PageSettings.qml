@@ -229,7 +229,7 @@ Item {
                             Label{
                                 id: labelParameter4_1
                                 color: "#ffffff"
-                                text: "Temperature in<BR>electric cabinet = " + appmanager.temperatureBox + " °C"
+                                text: "Temperature in<BR>electric cabinet = " + appmanager.temperatureBox.toFixed(1) + " °C"
                                 anchors.left: parent.left
                                 font.pixelSize: itemBottom.height / 14
                             }

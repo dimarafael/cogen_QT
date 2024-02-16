@@ -160,6 +160,12 @@ Window {
         color: "black"
     }
 
+    Rectangle{
+        anchors.fill: parent
+        color: "blue"
+        visible: appmanager.coolingState
+    }
+
     //Background RED for alarm state display
     Rectangle{
         id: backgroundAlarm
