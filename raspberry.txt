@@ -1,0 +1,16 @@
+vi /etc/systemd/network/10-eth0.network
+
+[Match]
+Name=eth0
+
+[Network]
+Address=192.168.1.10/24
+Gateway=192.168.1.1
+DNS=8.8.8.8
+
+--------------
+usb mouse:
+
+
+/boot/config.txе
+dtoverlay=dwc2,dr_mode=host
