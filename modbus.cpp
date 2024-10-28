@@ -1,6 +1,25 @@
 #include "modbus.h"
 
+modbus::modbus(){
+    mc = new QModbusTcpClient(this);
+    mc->setConnectionParameter(QModbusDevice::NetworkAddressParameter, "127.0.0.1");
+    // mc->setConnectionParameter(QModbusDevice::NetworkAddressParameter, "192.168.1.42");
+    mc->setConnectionParameter(QModbusDevice::NetworkPortParameter, 502);
+    timer = new QTimer(this);
+    vData = new QVector<quint16>(100);
+    du = new QModbusDataUnit(QModbusDataUnit::HoldingRegisters,99,*vData);
+    connect(mc, &QModbusClient::stateChanged, this, &modbus::processStateChanged);
+}
 
+modbus::~modbus(){
+    if(mc) {
+        mc->disconnect();
+        // delete mc;
+        mc->deleteLater();
+    }
+}
+
+// starts in thread
 void modbus::pollModbus(){
     mc->connectDevice();
     timer->start(1000);
@@ -43,22 +62,6 @@ void modbus::timerTimeout()
     } else if (mc->state() == QModbusDevice::UnconnectedState){
         mc->connectDevice();
     }
-}
-
-modbus::modbus(){
-    mc = new QModbusTcpClient(this);
-    mc->setConnectionParameter(QModbusDevice::NetworkAddressParameter, "127.0.0.1");
-    // mc->setConnectionParameter(QModbusDevice::NetworkAddressParameter, "192.168.1.42");
-    mc->setConnectionParameter(QModbusDevice::NetworkPortParameter, 502);
-    timer = new QTimer(this);
-    vData = new QVector<quint16>(100);
-    du = new QModbusDataUnit(QModbusDataUnit::HoldingRegisters,99,*vData);
-    connect(mc, &QModbusClient::stateChanged, this, &modbus::processStateChanged);
-}
-
-modbus::~modbus(){
-    if(mc) mc->disconnect();
-    delete mc;
 }
 
 float modbus::toFloat(quint16 low, quint16 high)

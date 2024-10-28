@@ -4,6 +4,7 @@
 #include <QModbusTcpClient>
 #include <QVariant>
 #include <QTimer>
+#include <QThread>
 
 class modbus : public QObject
 {

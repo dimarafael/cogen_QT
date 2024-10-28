@@ -8,6 +8,7 @@
 AppManager::AppManager(QObject *parent) : QObject{parent}
 {
     QThread *thread = new QThread;
+    thread->setObjectName("Modbus thread");
     mb = new modbus();
     tSmokeTrendlog = new Trendlog(this);
     tProductTrendlog = new Trendlog(this);
