@@ -49,7 +49,7 @@ Window {
                     if(appmanager.gazPreset>1) appmanager.onSetFireLevel(appmanager.gazPreset-1)
                                                })
                 popUpFire.plusClicked.connect(()=>{
-                    if(appmanager.gazPreset<9) appmanager.onSetFireLevel(appmanager.gazPreset+1)
+                    if(appmanager.gazPreset<10) appmanager.onSetFireLevel(appmanager.gazPreset+1)
                                                })
                 popUpFire.close.connect(destroyPopUpFire)
             }
