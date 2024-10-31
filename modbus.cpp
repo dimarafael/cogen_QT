@@ -2,8 +2,8 @@
 
 modbus::modbus(){
     mc = new QModbusTcpClient(this);
-    mc->setConnectionParameter(QModbusDevice::NetworkAddressParameter, "127.0.0.1");
-    // mc->setConnectionParameter(QModbusDevice::NetworkAddressParameter, "192.168.1.42");
+    // mc->setConnectionParameter(QModbusDevice::NetworkAddressParameter, "127.0.0.1");
+    mc->setConnectionParameter(QModbusDevice::NetworkAddressParameter, "192.168.1.42");
     mc->setConnectionParameter(QModbusDevice::NetworkPortParameter, 502);
     timer = new QTimer(this);
     vData = new QVector<quint16>(100);
